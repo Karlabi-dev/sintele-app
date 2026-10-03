@@ -6,7 +6,7 @@ import { auth } from "./firebase";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-
+import EditProfessionalProfile from "./pages/EditProfessionalProfile";
 import ProfessionalDashboard from "./pages/ProfessionalDashboard";
 import CompanyDashboard from "./pages/CompanyDashboard";
 
@@ -118,13 +118,23 @@ function App() {
     }
 
     if (page === "professional") {
-        return (
-            <ProfessionalDashboard
-                account={account}
-                onLogout={handleLogout}
-            />
-        );
-    }
+    return (
+        <ProfessionalDashboard
+            account={account}
+            onLogout={handleLogout}
+            onEditProfile={() => setPage("edit-professional")}
+        />
+    );
+}
+
+if (page === "edit-professional") {
+    return (
+        <EditProfessionalProfile
+            onBack={() => setPage("professional")}
+            onProfileUpdated={() => setPage("professional")}
+        />
+    );
+}
 
     if (page === "company") {
         return (

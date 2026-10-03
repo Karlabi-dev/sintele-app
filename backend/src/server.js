@@ -6,6 +6,7 @@ require("dotenv").config();
 const pool = require("./db");
 const authRoutes = require("./routes/auth");
 require("./firebase-admin");
+const professionalProfileRoutes = require("./routes/professionalProfile");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api", authRoutes);
 const accountRoutes = require("./routes/accounts");
 
 app.use("/api", accountRoutes);
+app.use("/api", professionalProfileRoutes);
 
 app.listen(PORT, () => {
     console.log(`SINTELE API rodando na porta ${PORT}`);

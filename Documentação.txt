@@ -403,3 +403,7 @@ Marco concluído
 A etapa de autenticação, login, identificação PF/PJ, dashboards e persistência da sessão foi concluída com sucesso.
 
 Próxima etapa: desenvolvimento do Perfil Profissional, conectado aos dados reais do PostgreSQL/Neon.
+
+Perfil Profissional
+
+Implementação do módulo de Perfil Profissional do SINTELE, permitindo ao usuário visualizar e atualizar suas informações profissionais, como nome, username, profissão, empresa, biografia, localização e telefone. Os dados são armazenados no PostgreSQL e acessados por meio da API, com autenticação utilizando Firebase.
