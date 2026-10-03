@@ -406,4 +406,12 @@ Próxima etapa: desenvolvimento do Perfil Profissional, conectado aos dados reai
 
 Perfil Profissional
 
+------------
+
 Implementação do módulo de Perfil Profissional do SINTELE, permitindo ao usuário visualizar e atualizar suas informações profissionais, como nome, username, profissão, empresa, biografia, localização e telefone. Os dados são armazenados no PostgreSQL e acessados por meio da API, com autenticação utilizando Firebase.
+
+-------------
+
+Identidade Pública do Profissional
+
+Implementação da identidade pública do profissional no SINTELE. O sistema passou a criar automaticamente o perfil profissional durante o cadastro, validar e garantir a unicidade do username e disponibilizar uma rota pública para consulta do perfil através desse identificador.
