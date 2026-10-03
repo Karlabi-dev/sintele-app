@@ -1,0 +1,235 @@
+SINTELE APP — Documentação do Desenvolvimento
+Estado atual do projeto • React + Vite + Firebase + Node/Express + PostgreSQL/Neon
+
+1. VISÃO GERAL
+==============
+SINTELE é uma plataforma de identidade profissional e empresarial, networking e apresentação digital. A proposta é conectar pessoas, empresas, talentos e oportunidades por meio de perfis digitais compartilháveis por link, QR Code e, futuramente, NFC.
+O aplicativo será uma única aplicação com duas experiências principais: Profissional (PF) e Empresa (PJ). As duas identidades ficam separadas, inclusive com e-mails próprios, mas fazem parte do mesmo ecossistema SINTELE.
+
+2. ESTRUTURA DO PRODUTO
+=======================
+SINTELE Web: perfil público acessível por link/QR/NFC.
+SINTELE App: aplicativo principal para usuários profissionais e empresas.
+Profissional (PF): identidade profissional, projetos, conexões, redes, currículo/certificados e compartilhamento.
+Empresa (PJ): identidade corporativa, equipe/colaboradores, projetos, serviços/eventos e compartilhamento.
+SINTELE Business representa a experiência empresarial dentro do ecossistema, não necessariamente um aplicativo separado.
+
+3. ARQUITETURA DEFINIDA
+=======================
+Arquitetura atual:
+React + Vite
+↓
+Firebase Authentication
+↓
+Node.js + Express API
+↓
+PostgreSQL hospedado no Neon
+O React não acessa o Neon diretamente. O Firebase é responsável pela identidade/autenticação. A API valida o token do Firebase e controla o acesso aos dados do PostgreSQL.
+
+4. FLUXO DE CADASTRO PLANEJADO
+==============================
+Usuário preenche o cadastro no React.
+Firebase Authentication cria/autentica o usuário.
+Firebase fornece um ID Token.
+React envia o token para a API no cabeçalho Authorization: Bearer <token>.
+Firebase Admin no backend valida o token.
+A API identifica o UID e o e-mail.
+A API cria o registro correspondente no PostgreSQL/Neon.
+Depois, o usuário terá seu perfil Profissional ou Empresa associado à conta.
+
+5. ESTRUTURA DO PROJETO
+=======================
+Estrutura criada:
+sintele-app/
+├── backend/
+│   ├── src/
+│   │   ├── server.js
+│   │   ├── db.js
+│   │   ├── firebase-admin.js
+│   │   ├── middlewares/
+│   │   │   └── authMiddleware.js
+│   │   └── routes/
+│   │       ├── auth.js
+│   │       └── accounts.js
+│   ├── .env
+│   ├── .gitignore
+│   ├── firebase-service-account.json
+│   ├── package.json
+│   └── package-lock.json
+│
+└── frontend/
+    ├── src/
+    │   ├── firebase.js
+    │   ├── App.jsx
+    │   └── pages/
+    │       └── Register.jsx
+    ├── package.json
+    └── ...
+
+6. BACKEND — TECNOLOGIAS E PACOTES
+==================================
+Node.js
+Express
+pg (PostgreSQL)
+firebase-admin
+dotenv
+cors
+helmet
+express-rate-limit
+nodemon como dependência de desenvolvimento
+Scripts do backend:
+npm run dev
+npm start
+
+7. BACKEND — SERVIDOR
+=====================
+O server.js configura Express, CORS, Helmet, JSON com limite de 1 MB, rate limiting, conexão com o PostgreSQL e as rotas da API. O servidor roda na porta 3000.
+Rotas atualmente montadas: /api para auth e /api para accounts.
+
+8. BANCO DE DADOS — NEON
+========================
+Projeto Neon: sintele. O banco possui oito tabelas principais:
+accounts
+professional_profiles
+company_profiles
+social_links
+projects
+connections
+company_members
+company_events
+As tabelas foram estruturadas para separar conta/autenticação de perfil e para permitir dados específicos de profissionais e empresas.
+
+9. TABELA ACCOUNTS
+==================
+Responsável por representar a conta autenticada e relacionar o Firebase ao banco de dados.
+Campos principais:
+- id: UUID, chave primária
+- firebase_uid: UID do Firebase, único e obrigatório
+- type: professional ou company
+- email: e-mail da conta, único e obrigatório
+- created_at
+- updated_at
+
+10. TABELA PROFESSIONAL_PROFILES
+================================
+Armazena o perfil profissional. Possui account_id, nome completo, foto, profissão, empresa, bio, cidade, estado, telefone, timestamps e username único.
+
+11. TABELA COMPANY_PROFILES
+===========================
+Armazena o perfil empresarial. Possui account_id, nome da empresa, nome fantasia, CNPJ, logo, capa, descrição, site, telefone, e-mail, cidade, estado, timestamps e username único.
+
+12. TABELA SOCIAL_LINKS
+=======================
+Armazena links de redes sociais e permite que cada registro pertença a um perfil profissional ou a um perfil empresarial, nunca aos dois simultaneamente.
+
+13. TABELA PROJECTS
+===================
+Armazena projetos profissionais ou empresariais. Possui título, descrição, imagem, URL do projeto e URL do GitHub, com vínculo exclusivo a profissional ou empresa.
+
+14. TABELA CONNECTIONS
+======================
+Controla conexões entre profissionais com status pending, accepted ou rejected. Foi criado um índice único usando LEAST/GREATEST para impedir que A→B e B→A sejam registrados como duas conexões diferentes.
+
+15. TABELA COMPANY_MEMBERS
+==========================
+Relaciona profissionais a empresas. O papel pode ser owner, admin ou member. Existe uma restrição de unicidade para impedir duplicação do mesmo profissional na mesma empresa.
+
+16. TABELA COMPANY_EVENTS
+=========================
+Armazena eventos relacionados a empresas, com nome, descrição, logo, URL e data do evento.
+
+17. SEGURANÇA DO BANCO
+======================
+DATABASE_URL fica no .env e não deve ser publicada.
+firebase-service-account.json é segredo do Firebase Admin e está no .gitignore.
+O frontend não recebe a credencial administrativa do Firebase.
+O backend valida tokens do Firebase.
+Consultas ao PostgreSQL usam parâmetros em vez de concatenar valores diretamente.
+Helmet e rate limiting já estão configurados.
+CORS está configurado; a política poderá ser restringida posteriormente para o domínio oficial.
+
+18. FIREBASE — FRONTEND
+=======================
+O frontend usa Firebase JS SDK. O arquivo src/firebase.js inicializa o Firebase e exporta o objeto auth com getAuth(app). O projeto Firebase usado é o projeto existente sintele-tech.
+O Firebase Web Config contém dados públicos de configuração do aplicativo. As credenciais administrativas do Firebase não devem ser colocadas no frontend.
+
+19. FIREBASE — BACKEND
+======================
+O backend usa Firebase Admin SDK. O arquivo src/firebase-admin.js carrega firebase-service-account.json e inicializa o Firebase Admin com cert().
+Uma correção importante foi necessária: server.js passou a carregar require('./firebase-admin') antes das rotas usarem getAuth(). Isso eliminou o erro 'The default Firebase app does not exist'.
+
+20. MIDDLEWARE DE AUTENTICAÇÃO
+==============================
+authMiddleware.js procura o cabeçalho Authorization no formato Bearer <token>, valida o ID Token com Firebase Admin e coloca os dados decodificados em req.user. Tokens ausentes, inválidos ou expirados retornam HTTP 401.
+
+21. ROTA DE AUTENTICAÇÃO
+========================
+GET /api/me é uma rota protegida usada para verificar se o usuário está autenticado. Ela retorna UID e e-mail do usuário autenticado.
+
+22. FRONTEND — CADASTRO
+=======================
+Register.jsx atualmente usa createUserWithEmailAndPassword. Após criar o usuário, chama user.getIdToken() e envia o token para POST http://localhost:3000/api/accounts.
+O teste já foi concluído com sucesso: a interface exibiu 'Conta criada e conectada à API com sucesso!'. Isso comprova que React → Firebase Authentication → ID Token → Firebase Admin → API está funcionando.
+
+23. PROBLEMAS ENCONTRADOS E RESOLVIDOS
+======================================
+npm install firebase ficou travado por longos períodos. O pacote já estava no node_modules como extraneous. Foi removido node_modules/package-lock e reinstalado o projeto; depois o Firebase foi registrado manualmente no package.json.
+O Firebase inicialmente aparecia como extraneous porque não estava em dependencies. Foi adicionado 'firebase': '^12.19.0'.
+O backend retornou 'The default Firebase app does not exist'. A causa era o Firebase Admin não estar sendo inicializado antes de getAuth(). A solução foi importar ./firebase-admin no server.js.
+Após a correção, o cadastro e a comunicação com a API funcionaram.
+
+24. ESTADO ATUAL
+================
+React + Vite funcionando.
+Firebase Web SDK instalado e registrado no package.json.
+Firebase Authentication funcionando.
+Cadastro por e-mail e senha funcionando.
+Firebase Admin funcionando no backend.
+ID Token sendo enviado do frontend para a API.
+API validando o token com sucesso.
+Node/Express funcionando na porta 3000.
+Conexão com Neon funcionando.
+Estrutura principal do banco criada.
+Interface ainda é propositalmente simples; a fase visual será feita depois da validação funcional.
+
+25. PRÓXIMO PASSO IMEDIATO
+==========================
+A rota POST /api/accounts foi criada inicialmente para testar o token. O próximo passo é fazer essa rota inserir de fato firebase_uid, type e email na tabela accounts do Neon.
+Depois disso, será implementada a escolha entre Profissional e Empresa e a criação do respectivo perfil.
+
+26. FASE VISUAL PLANEJADA
+=========================
+Depois que o fluxo funcional estiver validado, o frontend será reconstruído visualmente para ter aparência de produto real:
+Tela inicial
+Login
+Cadastro
+Escolha Profissional/Empresa
+Dashboard
+Perfil profissional
+Perfil empresarial
+Edição de perfil
+Projetos
+Conexões
+Equipe/colaboradores
+Responsividade mobile
+Identidade visual baseada no SINTELE Web
+Ícones, logo, animações, estados de carregamento e mensagens de erro/sucesso
+
+27. REGRAS IMPORTANTES PARA O DESENVOLVIMENTO
+=============================================
+Nunca colocar DATABASE_URL ou firebase-service-account.json no GitHub.
+Nunca enviar a chave privada do Firebase Admin para o frontend.
+Não conectar React diretamente ao Neon.
+Sempre validar autenticação no backend para operações protegidas.
+Separar identidade do Firebase dos dados de negócio no PostgreSQL.
+Usar UUID interno e username público para URLs/perfis.
+Manter contas profissionais e empresariais separadas, inclusive com e-mails próprios.
+Primeiro validar a funcionalidade; depois investir na interface visual.
+
+28. OBSERVAÇÃO SOBRE SEGREDOS
+=============================
+Este documento deliberadamente NÃO registra DATABASE_URL, senha do banco, chave privada do Firebase Admin ou outros segredos. Essas informações devem permanecer apenas nos arquivos locais/variáveis de ambiente apropriados.
+
+29. MARCO ALCANÇADO
+===================
+O primeiro fluxo autenticado do SINTELE App foi concluído: um usuário conseguiu criar uma conta no Firebase e o frontend conseguiu enviar seu token para a API, que foi capaz de validar a identidade usando Firebase Admin. Este é o primeiro fluxo completo de autenticação do aplicativo.
