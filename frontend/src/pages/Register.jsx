@@ -6,8 +6,12 @@ import {
 import { auth } from "../firebase";
 
 function Register() {
+    const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [type, setType] = useState("professional");
+
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
@@ -16,6 +20,21 @@ function Register() {
 
         setError("");
         setSuccess("");
+
+        if (!fullName.trim()) {
+            setError("Digite seu nome completo.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setError("As senhas não coincidem.");
+            return;
+        }
+
+        if (password.length < 6) {
+            setError("A senha deve ter pelo menos 6 caracteres.");
+            return;
+        }
 
         try {
             const userCredential =
@@ -37,6 +56,10 @@ function Register() {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
+                    body: JSON.stringify({
+                        fullName: fullName.trim(),
+                        type: type,
+                    }),
                 }
             );
 
@@ -65,6 +88,16 @@ function Register() {
             <h1>Criar conta</h1>
 
             <form onSubmit={handleRegister}>
+
+                <input
+                    type="text"
+                    placeholder="Nome completo"
+                    value={fullName}
+                    onChange={(event) =>
+                        setFullName(event.target.value)
+                    }
+                />
+
                 <input
                     type="email"
                     placeholder="E-mail"
@@ -82,6 +115,45 @@ function Register() {
                         setPassword(event.target.value)
                     }
                 />
+
+                <input
+                    type="password"
+                    placeholder="Confirmar senha"
+                    value={confirmPassword}
+                    onChange={(event) =>
+                        setConfirmPassword(event.target.value)
+                    }
+                />
+
+                <div>
+                    <p>Tipo de conta:</p>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="type"
+                            value="professional"
+                            checked={type === "professional"}
+                            onChange={(event) =>
+                                setType(event.target.value)
+                            }
+                        />
+                        Profissional
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="type"
+                            value="company"
+                            checked={type === "company"}
+                            onChange={(event) =>
+                                setType(event.target.value)
+                            }
+                        />
+                        Empresa
+                    </label>
+                </div>
 
                 <button type="submit">
                     Criar conta

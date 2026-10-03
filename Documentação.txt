@@ -233,3 +233,173 @@ Este documento deliberadamente NÃO registra DATABASE_URL, senha do banco, chave
 29. MARCO ALCANÇADO
 ===================
 O primeiro fluxo autenticado do SINTELE App foi concluído: um usuário conseguiu criar uma conta no Firebase e o frontend conseguiu enviar seu token para a API, que foi capaz de validar a identidade usando Firebase Admin. Este é o primeiro fluxo completo de autenticação do aplicativo.
+
+Funcionalidades implementadas
+
+Nesta etapa foi concluída a estrutura básica de autenticação e gerenciamento de sessão do SINTELE App.
+
+30. Cadastro de usuários
+===================
+
+O aplicativo passou a permitir o cadastro de dois tipos de conta:
+
+professional — Profissional
+company — Empresa
+
+Durante o cadastro são informados:
+
+Nome
+E-mail
+Senha
+Confirmação da senha
+Tipo de conta
+
+O Firebase Authentication cria o usuário e a API registra a conta correspondente no PostgreSQL/Neon.
+
+2. Criação automática do perfil
+
+Após o cadastro, o backend cria automaticamente o perfil correspondente.
+
+Para profissional:
+
+accounts
+   ↓
+professional_profiles
+
+Para empresa:
+
+accounts
+   ↓
+company_profiles
+3. Login
+
+Foi implementado o login utilizando:
+
+Firebase Authentication
+
+O usuário informa:
+
+E-mail
+Senha
+
+Após a autenticação, o frontend recebe o usuário do Firebase e obtém seu ID Token.
+
+Esse token é enviado para a API através do header:
+
+Authorization: Bearer <token>
+4. Identificação do tipo de conta
+
+Após o login, o frontend consulta:
+
+GET /api/accounts/me
+
+A API identifica a conta através do firebase_uid e retorna o tipo armazenado no Neon.
+
+Exemplo:
+
+type = professional
+
+ou:
+
+type = company
+
+O aplicativo então direciona automaticamente para o dashboard correspondente.
+
+professional → Dashboard Profissional
+
+company → Dashboard Empresa
+5. Dashboards
+
+Foram criados os primeiros dashboards:
+
+ProfessionalDashboard
+
+Identificação do usuário
+E-mail
+Botão de sair
+
+CompanyDashboard
+
+Identificação da empresa
+E-mail
+Botão de sair
+
+Neste momento os dashboards são apenas a estrutura inicial. O conteúdo completo dos perfis será implementado nas próximas etapas.
+
+6. Persistência da sessão
+
+Foi implementada a recuperação automática da sessão utilizando:
+
+onAuthStateChanged()
+
+Ao abrir ou atualizar o aplicativo, o sistema verifica se existe um usuário autenticado.
+
+Se existir:
+
+Firebase
+   ↓
+Usuário autenticado
+   ↓
+getIdToken()
+   ↓
+GET /api/accounts/me
+   ↓
+Identifica type
+   ↓
+Dashboard correspondente
+
+Com isso, o usuário não precisa fazer login novamente ao atualizar ou reabrir o aplicativo, enquanto a sessão do Firebase estiver ativa.
+
+7. Logout
+
+Foi implementado o logout utilizando:
+
+signOut(auth)
+
+Após sair:
+
+Usuário
+   ↓
+Logout
+   ↓
+Sessão Firebase encerrada
+   ↓
+Conta removida do estado
+   ↓
+Home
+Testes realizados
+Conta profissional
+Login
+↓
+Firebase
+↓
+Neon
+↓
+type = professional
+↓
+Dashboard Profissional
+
+Resultado: ✅
+
+Conta empresarial
+Login
+↓
+Firebase
+↓
+Neon
+↓
+type = company
+↓
+Dashboard Empresa
+
+Resultado: ✅
+
+Persistência
+Atualização da página: ✅
+Fechar e abrir novamente: ✅
+Logout: ✅
+Marco concluído
+
+A etapa de autenticação, login, identificação PF/PJ, dashboards e persistência da sessão foi concluída com sucesso.
+
+Próxima etapa: desenvolvimento do Perfil Profissional, conectado aos dados reais do PostgreSQL/Neon.
