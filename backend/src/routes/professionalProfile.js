@@ -222,5 +222,64 @@ router.get(
     }
 );
 
+router.put(
+    "/profiles/professional/me/photo",
+    authenticate,
+    async (req, res) => {
+        try {
+            const { uid } = req.user;
+            const { photoUrl } = req.body;
+
+            if (!photoUrl || !photoUrl.trim()) {
+                return res.status(400).json({
+                    error: "URL da foto é obrigatória.",
+                });
+            }
+
+            const result = await pool.query(
+                `
+                UPDATE professional_profiles pp
+                SET
+                    photo_url = $1,
+                    updated_at = CURRENT_TIMESTAMP
+                FROM accounts a
+                WHERE
+                    pp.account_id = a.id
+                    AND a.firebase_uid = $2
+                RETURNING
+                    pp.id,
+                    pp.photo_url,
+                    pp.updated_at
+                `,
+                [
+                    photoUrl.trim(),
+                    uid
+                ]
+            );
+
+            if (result.rows.length === 0) {
+                return res.status(404).json({
+                    error: "Perfil profissional não encontrado.",
+                });
+            }
+
+            res.json({
+                message: "Foto de perfil atualizada com sucesso!",
+                profile: result.rows[0],
+            });
+
+        } catch (error) {
+            console.error(
+                "ERRO AO ATUALIZAR FOTO DO PERFIL:",
+                error
+            );
+
+            res.status(500).json({
+                error: "Erro ao atualizar foto do perfil.",
+            });
+        }
+    }
+);
+
 
 module.exports = router;

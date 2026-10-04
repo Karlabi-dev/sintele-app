@@ -4,7 +4,7 @@ import { auth } from "../firebase";
 function ProfessionalDashboard({
     account,
     onLogout,
-    onEditProfile
+    onEditProfile,
 }) {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -79,9 +79,18 @@ function ProfessionalDashboard({
         <div>
             <h1>SINTELE</h1>
 
-            <h2>
-                Olá, {profile.full_name}! 👋
-            </h2>
+{profile.photo_url && (
+    <div>
+        <img
+            src={profile.photo_url}
+            alt={`Foto de ${profile.full_name}`}
+            width="150"
+            height="150"
+        />
+    </div>
+        )}
+
+        <h2>Olá, {profile.full_name}! 👋</h2>
 
             <p>
                 E-mail: {account.email}
@@ -131,6 +140,7 @@ function ProfessionalDashboard({
             <button onClick={onEditProfile}>
                 Editar perfil
             </button>
+
 
             <button onClick={onLogout}>
                 Sair

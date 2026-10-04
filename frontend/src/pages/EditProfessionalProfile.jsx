@@ -17,6 +17,9 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [photoFile, setPhotoFile] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState("");
+    const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
     useEffect(() => {
         async function loadProfile() {
@@ -48,6 +51,8 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                 }
 
                 const profile = data.profile;
+
+                setPhotoUrl(profile.photo_url || "");
 
                 setFormData({
                     fullName: profile.full_name || "",
@@ -84,6 +89,91 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
             [name]: value,
         }));
     }
+
+    async function handlePhotoUpload() {
+    if (!photoFile) {
+        setError("Selecione uma foto.");
+        return;
+    }
+
+    setError("");
+    setSuccess("");
+    setUploadingPhoto(true);
+
+    try {
+        const user = auth.currentUser;
+
+        if (!user) {
+            throw new Error("Usuário não autenticado.");
+        }
+
+        const token = await user.getIdToken();
+
+        const formData = new FormData();
+
+        formData.append("photo", photoFile);
+
+        const uploadResponse = await fetch(
+            "http://localhost:3000/api/upload/profile-photo",
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            }
+        );
+
+        const uploadData = await uploadResponse.json();
+
+        if (!uploadResponse.ok) {
+            throw new Error(
+                uploadData.error || "Erro ao enviar foto."
+            );
+        }
+
+        const photoResponse = await fetch(
+            "http://localhost:3000/api/profiles/professional/me/photo",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    photoUrl: uploadData.url,
+                }),
+            }
+        );
+
+        const photoData = await photoResponse.json();
+
+        if (!photoResponse.ok) {
+            throw new Error(
+                photoData.error ||
+                "Erro ao salvar foto no perfil."
+            );
+        }
+
+        setPhotoUrl(uploadData.url);
+        setPhotoFile(null);
+
+        setSuccess(
+            "Foto de perfil atualizada com sucesso!"
+        );
+
+    } catch (error) {
+        console.error(
+            "ERRO AO ATUALIZAR FOTO:",
+            error
+        );
+
+        setError(error.message);
+
+    } finally {
+        setUploadingPhoto(false);
+    }
+}
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -165,6 +255,38 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
             >
                 Voltar
             </button>
+
+            <div>
+    <h2>Foto de perfil</h2>
+
+    {photoUrl && (
+        <div>
+            <img
+                src={photoUrl}
+                alt="Foto de perfil"
+                width="150"
+            />
+        </div>
+    )}
+
+    <input
+        type="file"
+        accept="image/*"
+        onChange={(event) =>
+            setPhotoFile(event.target.files[0])
+        }
+    />
+
+    <button
+        type="button"
+        onClick={handlePhotoUpload}
+        disabled={uploadingPhoto || !photoFile}
+    >
+        {uploadingPhoto
+            ? "Enviando foto..."
+            : "Atualizar foto"}
+    </button>
+</div>
 
             <form onSubmit={handleSubmit}>
 

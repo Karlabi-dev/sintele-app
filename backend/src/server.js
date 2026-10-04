@@ -7,6 +7,7 @@ const pool = require("./db");
 const authRoutes = require("./routes/auth");
 require("./firebase-admin");
 const professionalProfileRoutes = require("./routes/professionalProfile");
+const uploadRoutes = require("./routes/upload");
 
 const app = express();
 
@@ -47,6 +48,20 @@ const accountRoutes = require("./routes/accounts");
 
 app.use("/api", accountRoutes);
 app.use("/api", professionalProfileRoutes);
+app.use("/api", uploadRoutes);
+
+const cloudinary = require("./cloudinary");
+
+cloudinary.api.ping()
+    .then(() => {
+        console.log("Conectado ao Cloudinary!");
+    })
+    .catch((error) => {
+        console.error(
+            "Erro ao conectar ao Cloudinary:",
+            error.message
+        );
+    });
 
 app.listen(PORT, () => {
     console.log(`SINTELE API rodando na porta ${PORT}`);

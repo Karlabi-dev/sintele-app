@@ -120,10 +120,10 @@ function App() {
     if (page === "professional") {
     return (
         <ProfessionalDashboard
-            account={account}
-            onLogout={handleLogout}
-            onEditProfile={() => setPage("edit-professional")}
-        />
+    account={account}
+    onLogout={handleLogout}
+    onEditProfile={() => setPage("edit-professional")}
+/>
     );
 }
 
@@ -145,10 +145,12 @@ if (page === "edit-professional") {
         );
     }
 
+
     return (
         <Home
             onRegister={() => setPage("register")}
             onLogin={() => setPage("login")}
+
         />
     );
 }

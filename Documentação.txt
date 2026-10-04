@@ -415,3 +415,36 @@ Implementação do módulo de Perfil Profissional do SINTELE, permitindo ao usu�
 Identidade Pública do Profissional
 
 Implementação da identidade pública do profissional no SINTELE. O sistema passou a criar automaticamente o perfil profissional durante o cadastro, validar e garantir a unicidade do username e disponibilizar uma rota pública para consulta do perfil através desse identificador.
+
+
+### Foto de Perfil
+
+Implementação do sistema de foto de perfil do SINTELE.
+
+O usuário autenticado pode selecionar uma imagem através da edição do perfil. A imagem é enviada para o Cloudinary e sua URL é armazenada no campo `photo_url` da tabela `professional_profiles` no PostgreSQL.
+
+O sistema também carrega automaticamente a foto salva no perfil e a exibe no Dashboard do profissional.
+
+#### Fluxo
+
+1. Usuário seleciona uma foto.
+2. Frontend envia a imagem para a API.
+3. Backend valida e processa o upload.
+4. Cloudinary armazena a imagem.
+5. Cloudinary retorna a URL segura.
+6. Backend salva a URL no PostgreSQL.
+7. Dashboard carrega e exibe a foto do perfil.
+
+#### Tecnologias
+
+- React
+- Node.js
+- Express
+- Multer
+- Cloudinary
+- PostgreSQL / Neon
+- Firebase Authentication
+
+#### Segurança
+
+O upload exige autenticação através do Firebase Authentication. O backend valida o token antes de permitir o envio e a atualização da foto.

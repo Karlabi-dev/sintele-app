@@ -1,4 +1,4 @@
-function Home({ onRegister, onLogin }) {
+function Home({ onRegister, onLogin,}) {
     return (
         <div>
             <h1>SINTELE</h1>
@@ -11,9 +11,12 @@ function Home({ onRegister, onLogin }) {
                 Entrar
             </button>
 
+
+
             <button onClick={onRegister}>
                 Criar conta
             </button>
+
         </div>
     );
 }
