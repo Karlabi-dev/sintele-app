@@ -2,7 +2,6 @@ const express = require("express");
 const authenticate = require("../middlewares/authMiddleware");
 const pool = require("../db");
 const router = express.Router();
-
 router.get(
     "/profiles/professional/me",
     authenticate,
@@ -52,7 +51,6 @@ router.get(
         }
     }
 );
-
 router.put(
     "/profiles/professional/me",
     authenticate,
@@ -68,7 +66,7 @@ router.put(
                 bio,
                 city,
                 state,
-                phone
+                phone,
             } = req.body;
             if (!fullName || !fullName.trim()) {
                 return res.status(400).json({
@@ -138,7 +136,7 @@ router.put(
                     city?.trim() || null,
                     state?.trim() || null,
                     phone?.trim() || null,
-                    uid
+                    uid,
                 ]
             );
             if (result.rows.length === 0) {
@@ -170,7 +168,6 @@ router.put(
         }
     }
 );
-
 router.get(
     "/profiles/professional/:username",
     async (req, res) => {
@@ -248,7 +245,7 @@ router.put(
                 `,
                 [
                     photoUrl.trim(),
-                    uid
+                    uid,
                 ]
             );
             if (result.rows.length === 0) {
@@ -294,7 +291,8 @@ router.get(
                     pp.company_name,
                     pp.bio,
                     pp.city,
-                    pp.state
+                    pp.state,
+                    pp.all_projects_url
                 FROM professional_profiles pp
                 WHERE pp.username = $1
                 `,
@@ -322,8 +320,7 @@ router.get(
                 `,
                 [profile.id]
             );
-            const contact =
-                contactResult.rows[0];
+            const contact = contactResult.rows[0];
             const socialResult = await pool.query(
                 `
                 SELECT
@@ -337,16 +334,34 @@ router.get(
                 `,
                 [profile.id]
             );
+            const projectsResult = await pool.query(
+                `
+                SELECT
+                    id,
+                    title,
+                    description,
+                    image_url,
+                    project_url,
+                    github_url
+                FROM projects
+                WHERE
+                    professional_profile_id = $1
+                    AND is_active = true
+                ORDER BY created_at ASC
+                LIMIT 2
+                `,
+                [profile.id]
+            );
             const contacts = {};
-            if (contact.whatsapp_active) {
+            if (contact?.whatsapp_active) {
                 contacts.whatsapp =
                     contact.phone;
             }
-            if (contact.phone_active) {
+            if (contact?.phone_active) {
                 contacts.phone =
                     contact.phone;
             }
-            if (contact.email_active) {
+            if (contact?.email_active) {
                 contacts.email =
                     contact.email;
             }
@@ -371,10 +386,14 @@ router.get(
                         profile.city,
                     state:
                         profile.state,
+                    allProjectsUrl:
+                        profile.all_projects_url,
                 },
                 contacts,
                 socialLinks:
                     socialResult.rows,
+                projects:
+                    projectsResult.rows,
             });
         } catch (error) {
             console.error(
