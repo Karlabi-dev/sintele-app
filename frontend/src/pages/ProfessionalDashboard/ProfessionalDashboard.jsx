@@ -80,7 +80,9 @@ function ProfessionalDashboard({
     const connections = 0;
     const profileCompletion = 85;
     const profileUrl = profile?.username
-        ? `https://karlabi-dev.github.io/sintele-web/${encodeURIComponent(profile.username)}`
+        ? `https://sintele-web.vercel.app/${encodeURIComponent(
+              profile.username
+          )}`
         : "";
     const handleShareProfile = async () => {
         if (!profile?.username) {
@@ -97,7 +99,9 @@ function ProfessionalDashboard({
                     url: profileUrl,
                 });
             } else {
-                await navigator.clipboard.writeText(profileUrl);
+                await navigator.clipboard.writeText(
+                    profileUrl
+                );
                 alert("Link do perfil copiado!");
             }
         } catch (error) {
@@ -106,7 +110,9 @@ function ProfessionalDashboard({
                     await navigator.clipboard.writeText(
                         profileUrl
                     );
-                    alert("Link do perfil copiado!");
+                    alert(
+                        "Link do perfil copiado!"
+                    );
                 } catch {
                     alert(
                         "Não foi possível compartilhar o perfil."
@@ -137,7 +143,8 @@ function ProfessionalDashboard({
                 <main className="dashboard-content">
                     <section className="welcome-section">
                         <h1>
-                            Olá, {profile.full_name?.split(" ")[0]}! 👋
+                            Olá,{" "}
+                            {profile.full_name?.split(" ")[0]}! 👋
                         </h1>
                         <p>
                             Aqui está o seu resumo de hoje.
@@ -275,8 +282,12 @@ function ProfessionalDashboard({
                         className="navigation-item active"
                         type="button"
                     >
-                        <span>⌂</span>
-                        <small>Início</small>
+                        <span>
+                            ⌂
+                        </span>
+                        <small>
+                            Início
+                        </small>
                     </button>
                     <button
                         className="navigation-item"
@@ -327,15 +338,18 @@ function ProfessionalDashboard({
                         className="navigation-item"
                         type="button"
                         onClick={() => {
-                            const confirmed = window.confirm(
-                                "Deseja realmente sair do SINTELE?"
-                            );
+                            const confirmed =
+                                window.confirm(
+                                    "Deseja realmente sair do SINTELE?"
+                                );
                             if (confirmed) {
                                 onLogout();
                             }
                         }}
                     >
-                        <span>↪</span>
+                        <span>
+                            ↪
+                        </span>
                         <small>
                             Sair
                         </small>

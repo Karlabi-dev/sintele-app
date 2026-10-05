@@ -10,7 +10,7 @@ import gmailIcon from "../../assets/icons/gmail.png";
 import compartilharIcon from "../../assets/icons/compartilhar.png";
 import qrCodeIcon from "../../assets/icons/qr-code.png";
 const PUBLIC_SINTELE_URL =
-    "https://karlabi-dev.github.io/sintele-web";
+    "https://sintele-web.vercel.app";
 function MySintele({ onBack, onEditProfile }) {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,7 +21,9 @@ function MySintele({ onBack, onEditProfile }) {
             try {
                 const user = auth.currentUser;
                 if (!user) {
-                    throw new Error("Usuário não autenticado.");
+                    throw new Error(
+                        "Usuário não autenticado."
+                    );
                 }
                 const token = await user.getIdToken();
                 const response = await fetch(
@@ -35,12 +37,16 @@ function MySintele({ onBack, onEditProfile }) {
                 const data = await response.json();
                 if (!response.ok) {
                     throw new Error(
-                        data.error || "Erro ao carregar perfil."
+                        data.error ||
+                            "Erro ao carregar perfil."
                     );
                 }
                 setProfile(data.profile);
             } catch (err) {
-                console.error("ERRO AO CARREGAR PERFIL:", err);
+                console.error(
+                    "ERRO AO CARREGAR PERFIL:",
+                    err
+                );
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -49,14 +55,18 @@ function MySintele({ onBack, onEditProfile }) {
         loadProfile();
     }, []);
     function getPublicProfileUrl() {
-        const username = profile?.username?.trim();
+        const username =
+            profile?.username?.trim();
         if (!username) {
             return "";
         }
-        return `${PUBLIC_SINTELE_URL}/${encodeURIComponent(username)}`;
+        return `${PUBLIC_SINTELE_URL}/${encodeURIComponent(
+            username
+        )}`;
     }
     async function handleShareLink() {
-        const profileUrl = getPublicProfileUrl();
+        const profileUrl =
+            getPublicProfileUrl();
         if (!profileUrl) {
             alert(
                 "Seu perfil ainda não possui um username. Cadastre um username para compartilhar."
@@ -72,23 +82,37 @@ function MySintele({ onBack, onEditProfile }) {
                 });
                 return;
             }
-            await navigator.clipboard.writeText(profileUrl);
-            alert("Link do seu SINTELE copiado!");
+            await navigator.clipboard.writeText(
+                profileUrl
+            );
+            alert(
+                "Link do seu SINTELE copiado!"
+            );
         } catch (err) {
             if (err.name === "AbortError") {
                 return;
             }
-            console.error("ERRO AO COMPARTILHAR:", err);
+            console.error(
+                "ERRO AO COMPARTILHAR:",
+                err
+            );
             try {
-                await navigator.clipboard.writeText(profileUrl);
-                alert("Link do seu SINTELE copiado!");
+                await navigator.clipboard.writeText(
+                    profileUrl
+                );
+                alert(
+                    "Link do seu SINTELE copiado!"
+                );
             } catch {
-                alert("Não foi possível compartilhar o link.");
+                alert(
+                    "Não foi possível compartilhar o link."
+                );
             }
         }
     }
     function handleQrCode() {
-        const profileUrl = getPublicProfileUrl();
+        const profileUrl =
+            getPublicProfileUrl();
         if (!profileUrl) {
             alert(
                 "Seu perfil ainda não possui um username. Cadastre um username para gerar o QR Code."
@@ -103,7 +127,9 @@ function MySintele({ onBack, onEditProfile }) {
                 <div className="my-sintele-container">
                     <div className="my-sintele-loading">
                         <span>S</span>
-                        <p>Carregando seu SINTELE...</p>
+                        <p>
+                            Carregando seu SINTELE...
+                        </p>
                     </div>
                 </div>
             </div>
@@ -121,7 +147,9 @@ function MySintele({ onBack, onEditProfile }) {
                         >
                             ←
                         </button>
-                        <h1>Meu SINTELE</h1>
+                        <h1>
+                            Meu SINTELE
+                        </h1>
                         <div className="my-sintele-header-space" />
                     </header>
                     <main className="my-sintele-content">
@@ -129,14 +157,17 @@ function MySintele({ onBack, onEditProfile }) {
                             <strong>
                                 Não foi possível carregar seu perfil.
                             </strong>
-                            <p>{error}</p>
+                            <p>
+                                {error}
+                            </p>
                         </div>
                     </main>
                 </div>
             </div>
         );
     }
-    const publicProfileUrl = getPublicProfileUrl();
+    const publicProfileUrl =
+        getPublicProfileUrl();
     return (
         <div className="my-sintele-page">
             <div className="my-sintele-container">
@@ -148,7 +179,9 @@ function MySintele({ onBack, onEditProfile }) {
                     >
                         ←
                     </button>
-                    <h1>Meu SINTELE</h1>
+                    <h1>
+                        Meu SINTELE
+                    </h1>
                     <button
                         type="button"
                         className="my-sintele-edit"
@@ -184,7 +217,8 @@ function MySintele({ onBack, onEditProfile }) {
                             )}
                         </div>
                         <h2>
-                            {profile?.full_name || "Seu nome"}
+                            {profile?.full_name ||
+                                "Seu nome"}
                         </h2>
                         {profile?.job_title && (
                             <span className="my-sintele-job-title">
@@ -206,15 +240,19 @@ function MySintele({ onBack, onEditProfile }) {
                                 {profile.bio}
                             </p>
                         )}
-                        {profile?.city && profile?.state && (
-                            <span className="my-sintele-location">
-                                {profile.city} - {profile.state}
-                            </span>
-                        )}
+                        {profile?.city &&
+                            profile?.state && (
+                                <span className="my-sintele-location">
+                                    {profile.city} -{" "}
+                                    {profile.state}
+                                </span>
+                            )}
                     </section>
                     <section className="my-sintele-section">
                         <div className="my-sintele-section-title">
-                            <h2>Contatos</h2>
+                            <h2>
+                                Contatos
+                            </h2>
                         </div>
                         <div className="my-sintele-contact-list">
                             {profile?.phone && (
@@ -227,7 +265,9 @@ function MySintele({ onBack, onEditProfile }) {
                                         <strong>
                                             Telefone / WhatsApp
                                         </strong>
-                                        <p>{profile.phone}</p>
+                                        <p>
+                                            {profile.phone}
+                                        </p>
                                     </div>
                                 </div>
                             )}
@@ -238,21 +278,28 @@ function MySintele({ onBack, onEditProfile }) {
                                         alt="E-mail"
                                     />
                                     <div>
-                                        <strong>E-mail</strong>
-                                        <p>{profile.email}</p>
+                                        <strong>
+                                            E-mail
+                                        </strong>
+                                        <p>
+                                            {profile.email}
+                                        </p>
                                     </div>
                                 </div>
                             )}
-                            {!profile?.phone && !profile?.email && (
-                                <p className="my-sintele-empty">
-                                    Nenhum contato cadastrado.
-                                </p>
-                            )}
+                            {!profile?.phone &&
+                                !profile?.email && (
+                                    <p className="my-sintele-empty">
+                                        Nenhum contato cadastrado.
+                                    </p>
+                                )}
                         </div>
                     </section>
                     <section className="my-sintele-section">
                         <div className="my-sintele-section-title">
-                            <h2>Compartilhar meu SINTELE</h2>
+                            <h2>
+                                Compartilhar meu SINTELE
+                            </h2>
                             <p>
                                 Compartilhe seu perfil profissional com
                                 outras pessoas.
@@ -270,7 +317,9 @@ function MySintele({ onBack, onEditProfile }) {
                                         alt="Compartilhar"
                                     />
                                 </span>
-                                <strong>Link</strong>
+                                <strong>
+                                    Link
+                                </strong>
                                 <small>
                                     Compartilhar
                                 </small>
@@ -286,7 +335,9 @@ function MySintele({ onBack, onEditProfile }) {
                                         alt="QR Code"
                                     />
                                 </span>
-                                <strong>QR Code</strong>
+                                <strong>
+                                    QR Code
+                                </strong>
                                 <small>
                                     Gerar código
                                 </small>
@@ -302,7 +353,9 @@ function MySintele({ onBack, onEditProfile }) {
                                         alt="NFC"
                                     />
                                 </span>
-                                <strong>NFC</strong>
+                                <strong>
+                                    NFC
+                                </strong>
                                 <small>
                                     Em breve
                                 </small>
@@ -310,10 +363,14 @@ function MySintele({ onBack, onEditProfile }) {
                         </div>
                         {publicProfileUrl && (
                             <div className="my-sintele-public-link">
-                                <span>Seu link público</span>
+                                <span>
+                                    Seu link público
+                                </span>
                                 <button
                                     type="button"
-                                    onClick={handleShareLink}
+                                    onClick={
+                                        handleShareLink
+                                    }
                                 >
                                     {publicProfileUrl}
                                 </button>
@@ -324,7 +381,9 @@ function MySintele({ onBack, onEditProfile }) {
                 {showQrCode && (
                     <div
                         className="my-sintele-qr-overlay"
-                        onClick={() => setShowQrCode(false)}
+                        onClick={() =>
+                            setShowQrCode(false)
+                        }
                     >
                         <div
                             className="my-sintele-qr-modal"
@@ -341,14 +400,18 @@ function MySintele({ onBack, onEditProfile }) {
                             >
                                 ×
                             </button>
-                            <h2>Meu QR Code</h2>
+                            <h2>
+                                Meu QR Code
+                            </h2>
                             <p>
                                 Aponte a câmera do celular para
                                 acessar meu perfil profissional.
                             </p>
                             <div className="my-sintele-qr">
                                 <QRCodeCanvas
-                                    value={publicProfileUrl}
+                                    value={
+                                        publicProfileUrl
+                                    }
                                     size={220}
                                     level="H"
                                     includeMargin={true}
@@ -360,7 +423,9 @@ function MySintele({ onBack, onEditProfile }) {
                             <button
                                 type="button"
                                 className="my-sintele-qr-share"
-                                onClick={handleShareLink}
+                                onClick={
+                                    handleShareLink
+                                }
                             >
                                 <img
                                     src={compartilharIcon}
