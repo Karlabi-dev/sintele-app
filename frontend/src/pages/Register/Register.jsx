@@ -65,7 +65,7 @@ function Register({ onLogin, onBack }) {
                 );
             }
             console.log("Resposta da API:", data);
-            setSuccess("Conta criada com sucesso!");
+            setSuccess("Conta criada com sucesso!");}
         catch (error) {
     console.error(error);
     let mensagem = "Erro ao cadastrar usuário.";
