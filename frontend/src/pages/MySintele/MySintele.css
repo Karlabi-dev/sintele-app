@@ -1,0 +1,500 @@
+.my-sintele-page {
+    min-height: 100vh;
+    width: 100%;
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(0, 102, 255, 0.12),
+            transparent 30%
+        ),
+        #020d20;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+.my-sintele-page * {
+    box-sizing: border-box;
+}
+.my-sintele-container {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    background: #020d20;
+}
+.my-sintele-header {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(0, 110, 255, 0.35);
+}
+.my-sintele-header h1 {
+    flex: 1;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+}
+.my-sintele-back {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: #061a36;
+    color: #1685ff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.my-sintele-back:hover {
+    background: #082348;
+    color: #ffffff;
+}
+.my-sintele-edit {
+    min-width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 10px;
+    border: 1px solid #075ed0;
+    border-radius: 8px;
+    background: #061a36;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.my-sintele-edit:hover {
+    background: #082348;
+    border-color: #1685ff;
+}
+.my-sintele-edit-icon {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    display: block;
+}
+.my-sintele-header-space {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+}
+.my-sintele-content {
+    width: 100%;
+    padding: 20px 16px 40px;
+}
+.my-sintele-profile-card {
+    width: 100%;
+    background: #061a36;
+    border: 1px solid #075ed0;
+    border-radius: 12px;
+    padding: 24px 16px;
+    text-align: center;
+}
+.my-sintele-photo-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.my-sintele-photo {
+    width: 105px;
+    height: 105px;
+    max-width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #075ed0;
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.18);
+}
+.my-sintele-photo-placeholder {
+    width: 105px;
+    height: 105px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #09284d;
+    border: 2px solid #075ed0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.my-sintele-photo-placeholder img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    display: block;
+}
+.my-sintele-profile-card h2 {
+    margin: 0 0 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+.my-sintele-job-title {
+    display: block;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1685ff;
+}
+.my-sintele-profession {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    color: #8ea5c2;
+}
+.my-sintele-company {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: #7890ad;
+}
+.my-sintele-bio {
+    width: 100%;
+    margin: 15px auto 0;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #8ea5c2;
+}
+.my-sintele-location {
+    display: block;
+    margin-top: 10px;
+    font-size: 10px;
+    color: #8ea5c2;
+}
+.my-sintele-section {
+    width: 100%;
+    margin-top: 15px;
+    background: #061a36;
+    border: 1px solid #075ed0;
+    border-radius: 12px;
+    padding: 16px;
+}
+.my-sintele-section-title {
+    width: 100%;
+}
+.my-sintele-section-title h2 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+}
+.my-sintele-section-title p {
+    margin: 5px 0 14px;
+    font-size: 9px;
+    color: #8ea5c2;
+    line-height: 1.4;
+}
+.my-sintele-contact-list {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.my-sintele-contact-item {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #09284d;
+    border: 1px solid #174575;
+    border-radius: 9px;
+}
+.my-sintele-contact-item > img {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding: 6px;
+    object-fit: contain;
+    border-radius: 7px;
+    background: rgba(0, 119, 255, 0.15);
+}
+.my-sintele-contact-item > div {
+    min-width: 0;
+    flex: 1;
+}
+.my-sintele-contact-item strong {
+    display: block;
+    font-size: 10px;
+    color: #ffffff;
+}
+.my-sintele-contact-item p {
+    margin: 3px 0 0;
+    font-size: 9px;
+    color: #8ea5c2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.my-sintele-empty {
+    margin: 0;
+    font-size: 10px;
+    color: #8ea5c2;
+    text-align: center;
+}
+.my-sintele-share-options {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+.my-sintele-share-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 82px;
+    padding: 9px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: 1px solid #075ed0;
+    border-radius: 9px;
+    background: #09284d;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.my-sintele-share-button:hover:not(:disabled) {
+    background: #082348;
+    border-color: #1685ff;
+    transform: translateY(-1px);
+}
+.my-sintele-share-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.my-sintele-share-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: rgba(0, 119, 255, 0.15);
+}
+.my-sintele-share-icon img {
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+    display: block;
+}
+.my-sintele-share-button strong {
+    font-size: 9px;
+    color: #ffffff;
+}
+.my-sintele-share-button small {
+    font-size: 7px;
+    color: #8ea5c2;
+    text-align: center;
+    line-height: 1.2;
+}
+.my-sintele-public-link {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: #09284d;
+    border: 1px solid #174575;
+    border-radius: 9px;
+}
+.my-sintele-public-link > span {
+    font-size: 9px;
+    color: #8ea5c2;
+}
+.my-sintele-public-link button {
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #1685ff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.my-sintele-loading {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #020d20;
+    color: #1685ff;
+    font-size: 13px;
+    font-weight: 600;
+}
+.my-sintele-loading span {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #075ed0;
+    border-radius: 50%;
+    color: #1685ff;
+    font-size: 20px;
+}
+.my-sintele-loading p {
+    margin: 0;
+}
+.my-sintele-error {
+    width: calc(100% - 32px);
+    max-width: 430px;
+    margin: 80px auto;
+    padding: 20px;
+    background: #061a36;
+    border: 1px solid #075ed0;
+    border-radius: 12px;
+    text-align: center;
+}
+.my-sintele-error strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 12px;
+}
+.my-sintele-error p {
+    margin: 0 0 15px;
+    color: #ff6b6b;
+    font-size: 11px;
+}
+.my-sintele-qr-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 5, 15, 0.82);
+}
+.my-sintele-qr-modal {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #061a36;
+    border: 1px solid #075ed0;
+    border-radius: 14px;
+    text-align: center;
+}
+.my-sintele-qr-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 7px;
+    background: #09284d;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+}
+.my-sintele-qr-modal h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #ffffff;
+}
+.my-sintele-qr-modal p {
+    margin: 0 0 18px;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #8ea5c2;
+}
+.my-sintele-qr {
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+}
+.my-sintele-qr-url {
+    width: 100%;
+    margin-top: 12px;
+    font-size: 8px;
+    color: #8ea5c2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.my-sintele-qr-share {
+    width: 100%;
+    min-height: 40px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: none;
+    border-radius: 9px;
+    background: #0878ff;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.my-sintele-qr-share:hover {
+    background: #1685ff;
+}
+.my-sintele-qr-share img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+@media (max-width: 430px) {
+    .my-sintele-header {
+        padding: 0 16px;
+    }
+    .my-sintele-content {
+        padding: 18px 14px 35px;
+    }
+    .my-sintele-profile-card {
+        padding: 22px 14px;
+    }
+    .my-sintele-section {
+        padding: 14px;
+    }
+}
+@media (max-width: 350px) {
+    .my-sintele-share-options {
+        grid-template-columns: 1fr;
+    }
+    .my-sintele-share-button {
+        min-height: 55px;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 8px 12px;
+    }
+    .my-sintele-share-button small {
+        display: none;
+    }
+}

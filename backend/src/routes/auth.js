@@ -1,8 +1,6 @@
 const express = require("express");
 const authenticate = require("../middlewares/authMiddleware");
-
 const router = express.Router();
-
 router.get("/me", authenticate, (req, res) => {
     res.json({
         message: "Usuário autenticado com sucesso!",
@@ -12,5 +10,4 @@ router.get("/me", authenticate, (req, res) => {
         },
     });
 });
-
 module.exports = router;

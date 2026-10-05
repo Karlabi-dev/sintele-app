@@ -1,0 +1,223 @@
+.edit-profile-page {
+    min-height: 100vh;
+    width: 100%;
+    background:
+        radial-gradient(circle at 20% 0%, rgba(0, 102, 255, 0.12), transparent 30%),
+        #020d20;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+.edit-profile-container {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    background: #020d20;
+}
+
+.edit-header {
+    height: 64px;
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid rgba(0, 110, 255, 0.35);
+    box-sizing: border-box;
+}
+.edit-header h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+.edit-back,
+.edit-save-icon {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 21px;
+}
+.edit-save-icon {
+    color: #1685ff;
+    font-size: 20px;
+}
+
+.edit-content {
+    padding: 22px 18px 40px;
+}
+
+.edit-photo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.edit-photo-wrapper {
+    position: relative;
+    width: 92px;
+    height: 92px;
+}
+.edit-profile-photo {
+    width: 92px;
+    height: 92px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #1685ff;
+    display: block;
+}
+.edit-profile-photo.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a2850;
+    color: #1685ff;
+    font-size: 30px;
+    font-weight: bold;
+}
+.photo-camera {
+    position: absolute;
+    right: -2px;
+    bottom: 0;
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0878ff;
+    border: 2px solid #020d20;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+}
+.change-photo-button {
+    margin-top: 9px;
+    border: none;
+    background: transparent;
+    color: #1685ff;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.edit-field label {
+    color: #aebed5;
+    font-size: 10px;
+}
+.edit-field input,
+.edit-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #061a36;
+    border: 1px solid #075ed0;
+    border-radius: 8px;
+    outline: none;
+    color: white;
+    font-family: inherit;
+    font-size: 11px;
+}
+.edit-field input {
+    height: 40px;
+    padding: 0 11px;
+}
+.edit-field textarea {
+    min-height: 80px;
+    padding: 10px 11px;
+    resize: vertical;
+}
+.edit-field input::placeholder,
+.edit-field textarea::placeholder {
+    color: #7188a5;
+}
+.edit-field input:focus,
+.edit-field textarea:focus {
+    border-color: #1685ff;
+    box-shadow: 0 0 8px rgba(0, 119, 255, 0.18);
+}
+.edit-extra-fields {
+    margin-top: 2px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 110, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.edit-row {
+    display: flex;
+    gap: 10px;
+}
+.edit-row .edit-field:first-child {
+    flex: 1;
+}
+.edit-row .edit-field:last-child {
+    width: 70px;
+}
+.edit-message {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+}
+.edit-message.error {
+    background: rgba(255, 50, 50, 0.08);
+    border: 1px solid rgba(255, 70, 70, 0.35);
+    color: #ff8d8d;
+}
+.edit-message.success {
+    background: rgba(0, 255, 150, 0.08);
+    border: 1px solid rgba(0, 255, 150, 0.3);
+    color: #63e6b1;
+}
+.edit-submit {
+    height: 45px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 23px;
+    background: #0878ff;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.edit-submit:hover {
+    background: #1685ff;
+}
+.edit-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.edit-loading {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #020d20;
+    color: white;
+}
+.edit-loading span {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #0878ff;
+    font-size: 28px;
+    font-weight: bold;
+}
+.edit-loading p {
+    color: #8ea5c2;
+    font-size: 12px;
+}
