@@ -45,7 +45,7 @@ function Register({ onLogin, onBack }) {
             const user = userCredential.user;
             const token = await user.getIdToken();
             const response = await fetch(
-                "http://localhost:3000/api/accounts",
+                "https://sintele-api.onrender.com/api/accounts",
                 {
                     method: "POST",
                     headers: {

@@ -60,7 +60,7 @@ function SocialContacts({ onBack }) {
                 const token =
                     await user.getIdToken();
                 const response = await fetch(
-                    "http://localhost:3000/api/social-contacts/me",
+                    "https://sintele-api.onrender.com/api/social-contacts/me",
                     {
                         headers: {
                             Authorization:
@@ -220,7 +220,7 @@ function SocialContacts({ onBack }) {
         isActive
     ) {
         const response = await fetch(
-            `http://localhost:3000/api/social-contacts/me/${type}`,
+            `https://sintele-api.onrender.com/api/social-contacts/me/${type}`,
             {
                 method: "PUT",
                 headers: {
@@ -253,7 +253,7 @@ function SocialContacts({ onBack }) {
         isActive
     ) {
         const response = await fetch(
-            `http://localhost:3000/api/social-contacts/me/social/${platform}`,
+            `https://sintele-api.onrender.com/api/social-contacts/me/social/${platform}`,
             {
                 method: "PUT",
                 headers: {

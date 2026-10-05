@@ -29,7 +29,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                 }
                 const token = await user.getIdToken();
                 const response = await fetch(
-                    "http://localhost:3000/api/profiles/professional/me",
+                    "https://sintele-api.onrender.com/api/profiles/professional/me",
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
             const photoFormData = new FormData();
             photoFormData.append("photo", photoFile);
             const uploadResponse = await fetch(
-                "http://localhost:3000/api/upload/profile-photo",
+                "https://sintele-api.onrender.com/api/upload/profile-photo",
                 {
                     method: "POST",
                     headers: {
@@ -105,7 +105,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                 throw new Error(uploadData.error || "Erro ao enviar foto.");
             }
             const photoResponse = await fetch(
-                "http://localhost:3000/api/profiles/professional/me/photo",
+                "https://sintele-api.onrender.com/api/profiles/professional/me/photo",
                 {
                     method: "PUT",
                     headers: {
@@ -146,7 +146,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
             }
             const token = await user.getIdToken();
             const response = await fetch(
-                "http://localhost:3000/api/profiles/professional/me",
+                "https://sintele-api.onrender.com/api/profiles/professional/me",
                 {
                     method: "PUT",
                     headers: {

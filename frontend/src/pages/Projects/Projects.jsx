@@ -40,7 +40,7 @@ function Projects({ onBack }) {
             setError("");
             const token = await getToken();
             const projectsResponse = await fetch(
-                "http://localhost:3000/api/projects/me",
+                "https://sintele-api.onrender.com/api/projects/me",
                 {
                     headers: {
                         Authorization:
@@ -61,7 +61,7 @@ function Projects({ onBack }) {
             );
             const allProjectsResponse =
                 await fetch(
-                    "http://localhost:3000/api/projects/me/all-projects-link",
+                    "https://sintele-api.onrender.com/api/projects/me/all-projects-link",
                     {
                         headers: {
                             Authorization:
@@ -143,7 +143,7 @@ function Projects({ onBack }) {
             );
             const uploadResponse =
                 await fetch(
-                    "http://localhost:3000/api/upload/project-image",
+                    "https://sintele-api.onrender.com/api/upload/project-image",
                     {
                         method: "POST",
                         headers: {
@@ -229,8 +229,8 @@ function Projects({ onBack }) {
                     await uploadProjectImage();
             }
             const url = editingId
-                ? `http://localhost:3000/api/projects/${editingId}`
-                : "http://localhost:3000/api/projects";
+                ? `https://sintele-api.onrender.com/api/projects/${editingId}`
+                : "https://sintele-api.onrender.com/api/projects";
             const method =
                 editingId
                     ? "PUT"
@@ -330,7 +330,7 @@ function Projects({ onBack }) {
                 await getToken();
             const response =
                 await fetch(
-                    `http://localhost:3000/api/projects/${project.id}/status`,
+                    `https://sintele-api.onrender.com/api/projects/${project.id}/status`,
                     {
                         method: "PUT",
                         headers: {
@@ -403,7 +403,7 @@ function Projects({ onBack }) {
                 await getToken();
             const response =
                 await fetch(
-                    `http://localhost:3000/api/projects/${project.id}`,
+                    `https://sintele-api.onrender.com/api/projects/${project.id}`,
                     {
                         method: "DELETE",
                         headers: {
@@ -458,7 +458,7 @@ function Projects({ onBack }) {
                 await getToken();
             const response =
                 await fetch(
-                    "http://localhost:3000/api/projects/me/all-projects-link",
+                    "https://sintele-api.onrender.com/api/projects/me/all-projects-link",
                     {
                         method: "PUT",
                         headers: {

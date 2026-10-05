@@ -30,7 +30,7 @@ function ProfessionalDashboard({
                 }
                 const token = await user.getIdToken();
                 const response = await fetch(
-                    "http://localhost:3000/api/profiles/professional/me",
+                    "https://sintele-api.onrender.com/api/profiles/professional/me",
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

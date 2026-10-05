@@ -36,7 +36,7 @@ function Login({
             const user = userCredential.user;
             const token = await user.getIdToken();
             const response = await fetch(
-                "http://localhost:3000/api/accounts/me",
+                "https://sintele-api.onrender.com/api/accounts/me",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
