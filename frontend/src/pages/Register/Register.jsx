@@ -66,10 +66,22 @@ function Register({ onLogin, onBack }) {
             }
             console.log("Resposta da API:", data);
             setSuccess("Conta criada com sucesso!");
-        } catch (error) {
-            console.error(error);
-            setError(error.message);
-        }
+        catch (error) {
+    console.error(error);
+    let mensagem = "Erro ao cadastrar usuário.";
+    if (error.code === "auth/email-already-in-use") {
+        mensagem = "Erro ao cadastrar usuário. Este e-mail já está cadastrado.";
+    } else if (error.code === "auth/invalid-email") {
+        mensagem = "Erro ao cadastrar usuário. O e-mail informado é inválido.";
+    } else if (error.code === "auth/weak-password") {
+        mensagem = "Erro ao cadastrar usuário. A senha é muito fraca.";
+    } else if (error.code === "auth/password-does-not-meet-requirements") {
+        mensagem = "Erro ao cadastrar usuário. A senha não atende aos requisitos mínimos.";
+    } else if (error.code === "auth/network-request-failed") {
+        mensagem = "Erro ao cadastrar usuário. Verifique sua conexão com a internet.";
+    }
+    alert(mensagem);
+}
     }
     return (
         <div className="register-page">
