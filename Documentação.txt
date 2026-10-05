@@ -190,30 +190,50 @@ API validando o token com sucesso.
 Node/Express funcionando na porta 3000.
 Conexão com Neon funcionando.
 Estrutura principal do banco criada.
-Interface ainda é propositalmente simples; a fase visual será feita depois da validação funcional.
+Perfis profissionais e empresariais conectados às contas.
+Login, persistência de sessão e logout funcionando.
+Dashboard Profissional e Dashboard Empresa criados.
+Perfil profissional conectado aos dados reais.
+Identidade pública do profissional implementada.
+Upload de foto de perfil com Cloudinary implementado.
+Redes sociais e contatos implementados.
+Gerenciamento de projetos implementado.
+Compartilhamento de perfil e QR Code implementados.
+Integração entre SINTELE App e SINTELE Web definida para links públicos.
+Interface visual do fluxo profissional já recebeu a identidade visual do SINTELE.
 
 25. PRÓXIMO PASSO IMEDIATO
 ==========================
-A rota POST /api/accounts foi criada inicialmente para testar o token. O próximo passo é fazer essa rota inserir de fato firebase_uid, type e email na tabela accounts do Neon.
-Depois disso, será implementada a escolha entre Profissional e Empresa e a criação do respectivo perfil.
+A prioridade atual é continuar finalizando o SINTELE App funcional, consolidando os módulos profissionais e validando a integração entre frontend, API, banco de dados e SINTELE Web.
+Depois da conclusão do fluxo profissional, a evolução seguirá para a experiência empresarial e para as próximas integrações do ecossistema.
 
-26. FASE VISUAL PLANEJADA
-=========================
-Depois que o fluxo funcional estiver validado, o frontend será reconstruído visualmente para ter aparência de produto real:
-Tela inicial
-Login
-Cadastro
-Escolha Profissional/Empresa
-Dashboard
-Perfil profissional
-Perfil empresarial
-Edição de perfil
+26. FASE VISUAL ATUAL
+=====================
+A fase visual deixou de ser apenas planejada e já está sendo aplicada aos principais módulos do aplicativo.
+
+Foram padronizados:
+Tela de cadastro
+Dashboard Profissional
+Meu SINTELE
+Redes e contatos
 Projetos
-Conexões
-Equipe/colaboradores
-Responsividade mobile
-Identidade visual baseada no SINTELE Web
-Ícones, logo, animações, estados de carregamento e mensagens de erro/sucesso
+Campos de formulário
+Cards
+Botões
+Estados selecionados
+Mensagens de sucesso e erro
+Responsividade para telas menores
+Ícones do sistema
+Modais de QR Code e compartilhamento
+
+A identidade visual utiliza principalmente:
+#020d20 — fundo
+#061a36 — cards
+#174575 — bordas
+#0878ff — azul principal
+#1685ff — azul secundário
+#ffffff — texto principal
+#8ea5c2 — texto secundário
 
 27. REGRAS IMPORTANTES PARA O DESENVOLVIMENTO
 =============================================
@@ -448,3 +468,370 @@ O sistema também carrega automaticamente a foto salva no perfil e a exibe no Da
 #### Segurança
 
 O upload exige autenticação através do Firebase Authentication. O backend valida o token antes de permitir o envio e a atualização da foto.
+
+30. MÓDULOS PROFISSIONAIS IMPLEMENTADOS
+=======================================
+
+Nesta etapa, o fluxo profissional do SINTELE App foi ampliado para além da autenticação, passando a contar com dashboard, perfil profissional, contatos, redes sociais, projetos, compartilhamento e QR Code.
+
+30.1 DASHBOARD PROFISSIONAL
+---------------------------
+O ProfessionalDashboard passou a funcionar como ponto central da experiência profissional.
+
+Funções implementadas:
+- identificação do perfil profissional;
+- acesso ao Meu SINTELE;
+- acesso a Redes e contatos;
+- acesso a Projetos;
+- logout;
+- compartilhamento do perfil;
+- geração de QR Code do perfil público.
+
+O compartilhamento utiliza o recurso nativo de compartilhamento quando disponível. Como alternativa, o sistema utiliza a área de transferência.
+
+O QR Code utiliza a URL pública do profissional no SINTELE Web.
+
+30.2 MEU SINTELE
+----------------
+Foi criado o módulo MySintele para apresentar a identidade profissional do usuário de forma centralizada.
+
+O módulo apresenta, conforme os dados disponíveis:
+- foto de perfil;
+- nome;
+- profissão;
+- cargo;
+- empresa;
+- biografia;
+- localização;
+- contatos ativos;
+- redes profissionais ativas.
+
+Também foram implementados:
+- edição do perfil;
+- compartilhamento do perfil;
+- link público;
+- QR Code;
+- integração com o SINTELE Web.
+
+A URL pública segue o padrão:
+
+https://karlabi-dev.github.io/sintele-web/{username}
+
+O username é utilizado como identificador público do perfil.
+
+30.3 REDES E CONTATOS
+---------------------
+Foi implementado o módulo SocialContacts.
+
+Contatos disponíveis:
+- WhatsApp;
+- telefone;
+- e-mail.
+
+Redes profissionais disponíveis:
+- LinkedIn;
+- Instagram;
+- GitHub;
+- YouTube.
+
+Cada contato ou rede possui controle individual de ativação. O usuário pode escolher quais informações ficarão disponíveis no seu perfil público.
+
+As alterações são enviadas para a API utilizando autenticação Firebase.
+
+Rotas utilizadas:
+GET /api/social-contacts/me
+PUT /api/social-contacts/me/whatsapp
+PUT /api/social-contacts/me/phone
+PUT /api/social-contacts/me/email
+PUT /api/social-contacts/me/social/:platform
+
+30.4 PROJETOS
+-------------
+Foi implementado o módulo Projects para gerenciamento dos projetos profissionais.
+
+Cada projeto pode possuir:
+- título;
+- descrição;
+- imagem;
+- URL do projeto;
+- URL do GitHub;
+- status ativo ou inativo.
+
+Também foram implementadas ações de edição e exclusão.
+
+O sistema possui regra para permitir no máximo dois projetos ativos simultaneamente.
+
+Na tabela projects foi adicionada a coluna:
+
+is_active BOOLEAN NOT NULL DEFAULT false
+
+Também foi adicionada ao perfil profissional a possibilidade de armazenar uma URL geral para todos os projetos:
+
+all_projects_url TEXT
+
+30.5 UPLOAD DE IMAGENS DE PROJETOS
+----------------------------------
+O backend passou a disponibilizar upload de imagens de projetos através do Cloudinary.
+
+Rota:
+POST /api/upload/project-image
+
+O upload exige autenticação, utiliza armazenamento temporário em memória e possui limite de 5 MB para arquivos de imagem.
+
+A URL retornada pelo Cloudinary é utilizada no campo image_url do projeto.
+
+31. COMPARTILHAMENTO E QR CODE
+==============================
+
+O SINTELE App passou a utilizar QR Code como forma de acesso rápido à identidade pública do profissional.
+
+Foi instalada a biblioteca:
+
+qrcode.react
+
+Versão utilizada no projeto:
+^4.2.0
+
+O QR Code é gerado a partir da URL pública do profissional no SINTELE Web.
+
+Fluxo:
+
+Perfil profissional
+↓
+username
+↓
+URL pública
+↓
+QR Code
+↓
+SINTELE Web
+
+Também foi implementado o compartilhamento do perfil através do recurso de compartilhamento do navegador ou dispositivo, com fallback para cópia do link.
+
+32. INTEGRAÇÃO COM O SINTELE WEB
+================================
+
+O SINTELE App foi integrado conceitualmente ao SINTELE Web para separar a área autenticada da área pública.
+
+Base pública atual:
+
+https://karlabi-dev.github.io/sintele-web
+
+O perfil individual utiliza:
+
+https://karlabi-dev.github.io/sintele-web/{username}
+
+No backend do SINTELE App foi criada a consulta pública:
+
+GET /public/professional/:username
+
+Essa rota permite buscar um perfil profissional através do username público.
+
+A resposta pública inclui dados de identidade profissional, como:
+- nome;
+- username;
+- foto;
+- cargo;
+- profissão;
+- empresa;
+- biografia;
+- cidade;
+- estado;
+- contatos disponíveis;
+- redes sociais ativas.
+
+33. UPLOAD E ARMAZENAMENTO DE FOTOS
+===================================
+
+O sistema de imagens utiliza Cloudinary para armazenar arquivos enviados pelos usuários.
+
+Rotas implementadas no backend:
+
+POST /api/upload/profile-photo
+POST /api/upload/company-photo
+POST /api/upload/company-cover
+POST /api/upload/project-image
+
+Os uploads são protegidos por autenticação.
+
+Para foto profissional, o fluxo é:
+
+Usuário seleciona imagem
+↓
+Frontend envia para a API
+↓
+Backend valida o arquivo
+↓
+Cloudinary armazena a imagem
+↓
+URL segura é retornada
+↓
+PostgreSQL armazena a URL
+↓
+Perfil exibe a imagem
+
+O limite configurado para os uploads é de 5 MB.
+
+34. IDENTIDADE VISUAL DO APLICATIVO
+===================================
+
+A interface dos principais módulos profissionais foi padronizada para seguir a identidade visual do SINTELE.
+
+Paleta principal:
+
+#020d20 — fundo principal
+#061a36 — cards e áreas internas
+#174575 — bordas
+#0878ff — azul principal
+#1685ff — azul secundário
+#ffffff — texto principal
+#8ea5c2 — texto secundário
+
+A interface utiliza:
+- cards escuros;
+- campos de formulário escuros;
+- bordas em azul;
+- botões em azul;
+- estados selecionados em azul;
+- mensagens de sucesso e erro;
+- layout responsivo.
+
+35. ÍCONES DO SISTEMA
+=====================
+
+Foi criada uma biblioteca de ícones em:
+
+src/assets/icons/
+
+Ícones utilizados no aplicativo:
+
+compartilhar.png
+edit.png
+empresa.png
+eye.png
+github.png
+gmail.png
+instagram.png
+linkedin.png
+meu_sintele.png
+professional.png
+projeto.png
+qr-code.png
+redes.png
+telefone.png
+user.png
+whatsapp.png
+youtube.png
+
+Principais utilizações:
+- professional.png — perfil profissional;
+- empresa.png — perfil empresarial;
+- eye.png — campos relacionados à senha;
+- telefone.png — contatos e telefone;
+- whatsapp.png — WhatsApp;
+- gmail.png — e-mail;
+- redes.png — seção de redes profissionais;
+- linkedin.png — LinkedIn;
+- instagram.png — Instagram;
+- github.png — GitHub;
+- youtube.png — YouTube;
+- projeto.png — projetos;
+- edit.png — edição;
+- compartilhar.png — compartilhamento;
+- qr-code.png — QR Code;
+- meu_sintele.png — Meu SINTELE.
+
+A utilização dos ícones foi padronizada mantendo a estrutura e o comportamento dos componentes.
+
+36. ROTAS DO FRONTEND
+=====================
+
+O App.jsx passou a controlar a navegação entre os principais módulos da experiência profissional.
+
+Rotas de estado implementadas:
+- professional;
+- my-sintele;
+- social-contacts;
+- projects;
+- edit-professional.
+
+O Dashboard Profissional funciona como ponto de entrada para os módulos de Meu SINTELE, Redes e contatos e Projetos.
+
+37. ESTRUTURA ATUAL DO FLUXO PROFISSIONAL
+=========================================
+
+Cadastro
+↓
+Firebase Authentication
+↓
+Conta no PostgreSQL/Neon
+↓
+Perfil Profissional
+↓
+Dashboard Profissional
+↓
+├── Meu SINTELE
+│   ├── Perfil
+│   ├── Contatos
+│   ├── Redes
+│   ├── Compartilhar
+│   └── QR Code
+│
+├── Redes e contatos
+│   ├── WhatsApp
+│   ├── Telefone
+│   ├── E-mail
+│   ├── LinkedIn
+│   ├── Instagram
+│   ├── GitHub
+│   └── YouTube
+│
+├── Projetos
+│   ├── Criar
+│   ├── Editar
+│   ├── Excluir
+│   ├── Ativar/Desativar
+│   └── GitHub/URL do projeto
+│
+└── Editar Perfil
+    ├── Dados profissionais
+    └── Foto de perfil
+
+38. MARCO ATUAL DO DESENVOLVIMENTO
+===================================
+
+O SINTELE App evoluiu do primeiro fluxo de autenticação para uma estrutura funcional de identidade profissional.
+
+Neste estágio já estão implementados:
+- autenticação Firebase;
+- cadastro PF/PJ;
+- criação de conta no Neon;
+- criação de perfil;
+- login;
+- identificação do tipo de conta;
+- persistência da sessão;
+- logout;
+- Dashboard Profissional;
+- Dashboard Empresa;
+- Perfil Profissional;
+- identidade pública por username;
+- foto de perfil com Cloudinary;
+- Meu SINTELE;
+- contatos;
+- redes profissionais;
+- projetos;
+- upload de imagens de projetos;
+- compartilhamento;
+- QR Code;
+- integração com o SINTELE Web;
+- identidade visual dos principais módulos profissionais;
+- biblioteca de ícones.
+
+A prioridade permanece concluir o fluxo profissional do aplicativo antes de avançar para a próxima etapa do ecossistema SINTELE.
+
+39. PRÓXIMAS EVOLUÇÕES
+======================
+
+As próximas evoluções do projeto serão registradas nesta documentação conforme forem implementadas.
+
+A documentação deverá continuar sendo atualizada junto com o desenvolvimento para manter o histórico técnico, arquitetural e funcional do SINTELE App.
