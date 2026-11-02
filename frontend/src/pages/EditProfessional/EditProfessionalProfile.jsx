@@ -5,6 +5,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
     const [formData, setFormData] = useState({
         fullName: "",
         username: "",
+        jobTitle: "",
         profession: "",
         companyName: "",
         bio: "",
@@ -46,6 +47,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                 setFormData({
                     fullName: profile.full_name || "",
                     username: profile.username || "",
+                    jobTitle: profile.job_title || "",
                     profession: profile.profession || "",
                     companyName: profile.company_name || "",
                     bio: profile.bio || "",
@@ -165,6 +167,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
             setFormData({
                 fullName: data.profile.full_name || "",
                 username: data.profile.username || "",
+                jobTitle: data.profile.job_title || "",
                 profession: data.profile.profession || "",
                 companyName: data.profile.company_name || "",
                 bio: data.profile.bio || "",
@@ -248,15 +251,16 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                         onSubmit={handleSubmit}
                     >
                         <div className="edit-field">
-                            <label>Nome completo</label>
+                            <label>Cargo</label>
                             <input
                                 type="text"
-                                name="fullName"
-                                value={formData.fullName}
+                                name="jobTitle"
+                                value={formData.jobTitle}
                                 onChange={handleChange}
-                                placeholder="Seu nome completo"
+                                placeholder="Ex.: Analista de Sistemas"
                             />
                         </div>
+
                         <div className="edit-field">
                             <label>Profissão</label>
                             <input
@@ -264,7 +268,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                                 name="profession"
                                 value={formData.profession}
                                 onChange={handleChange}
-                                placeholder="Ex.: Desenvolvedora Full Stack"
+                                placeholder="Ex.: Desenvolvedora de Software"
                             />
                         </div>
                         <div className="edit-field">
