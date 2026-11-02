@@ -148,7 +148,7 @@ function MySintele({ onBack, onEditProfile }) {
                             ←
                         </button>
                         <h1>
-                            Meu SINTELE
+                            Meu perfil
                         </h1>
                         <div className="my-sintele-header-space" />
                     </header>
@@ -180,7 +180,7 @@ function MySintele({ onBack, onEditProfile }) {
                         ←
                     </button>
                     <h1>
-                        Meu SINTELE
+                        Meu perfil
                     </h1>
                     <button
                         type="button"
@@ -298,7 +298,7 @@ function MySintele({ onBack, onEditProfile }) {
                     <section className="my-sintele-section">
                         <div className="my-sintele-section-title">
                             <h2>
-                                Compartilhar meu SINTELE
+                                Compartilhar perfil
                             </h2>
                             <p>
                                 Compartilhe seu perfil profissional com

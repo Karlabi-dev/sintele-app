@@ -1,0 +1,436 @@
+.my-sintele-page,
+.edit-profile-page,
+.social-contacts-page,
+.projects-page,
+.discover-page,
+.login-page,
+.register-page {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #f7faff;
+  text-align: left;
+}
+.my-sintele-page,
+.edit-profile-page,
+.social-contacts-page,
+.projects-page,
+.discover-page,
+.register-page {
+  background-color: #020d20;
+}
+.my-sintele-container,
+.edit-profile-container,
+.social-contacts-container,
+.projects-container {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.discover-container {
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+}
+.my-sintele-header,
+.edit-header,
+.social-contacts-header,
+.projects-header,
+.discover-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  min-height: 64px;
+  background: rgba(2, 13, 32, 0.95);
+  border-bottom: 1px solid rgba(23, 69, 117, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.my-sintele-header h1,
+.edit-header h1,
+.social-contacts-header h1,
+.projects-header h1 {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.my-sintele-content,
+.edit-content,
+.projects-content,
+.discover-content {
+  padding-top: 24px;
+}
+.my-sintele-profile-card,
+.my-sintele-section,
+.projects-section,
+.project-card,
+.privacy-section,
+.social-card,
+.discover-state,
+.professional-card,
+.login-card,
+.register-card {
+  border-radius: 16px;
+  border-color: rgba(23, 69, 117, 0.82);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+}
+.my-sintele-profile-card,
+.my-sintele-section,
+.projects-section,
+.privacy-section,
+.social-card,
+.discover-state,
+.professional-card {
+  background-color: #061a36;
+}
+.my-sintele-profile-card {
+  padding: 26px 20px;
+}
+.my-sintele-profile-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+.my-sintele-section {
+  padding: 18px;
+}
+.my-sintele-section-title h2,
+.section-title h2,
+.section-heading h2,
+.discover-results-heading h2 {
+  color: #fff;
+  font-weight: 700;
+}
+.my-sintele-section-title h2 {
+  font-size: 15px;
+}
+.my-sintele-section-title p {
+  font-size: 11px;
+}
+.my-sintele-contact-item {
+  background: #03142b;
+  border-color: rgba(23, 69, 117, 0.72);
+  border-radius: 11px;
+}
+.my-sintele-share-button {
+  min-height: 92px;
+  background: #03142b;
+  border-color: rgba(23, 69, 117, 0.82);
+  border-radius: 12px;
+}
+.my-sintele-share-button strong {
+  font-size: 10px;
+}
+.my-sintele-share-button small {
+  font-size: 9px;
+}
+.my-sintele-public-link {
+  background: #03142b;
+  border-color: rgba(23, 69, 117, 0.72);
+  border-radius: 11px;
+}
+.my-sintele-public-link > span {
+  font-size: 10px;
+}
+.my-sintele-public-link button {
+  font-size: 10px;
+}
+.edit-content,
+.projects-content {
+  padding-right: clamp(16px, 4vw, 30px);
+  padding-left: clamp(16px, 4vw, 30px);
+}
+.edit-header {
+  grid-template-columns: 40px 1fr 40px;
+  padding-right: 18px;
+  padding-left: 18px;
+}
+.edit-header h1 {
+  font-size: 17px;
+}
+.edit-field label,
+.form-field label {
+  color: #d5e2f2;
+  font-size: 11px;
+  font-weight: 600;
+}
+.edit-field input,
+.edit-field textarea,
+.form-field input,
+.form-field textarea,
+.contact-input,
+.social-input,
+.discover-search {
+  background: #03142b;
+  border-color: rgba(23, 69, 117, 0.9);
+  border-radius: 10px;
+  color: #fff;
+}
+.edit-field input,
+.form-field input {
+  min-height: 44px;
+  font-size: 12px;
+}
+.edit-field textarea,
+.form-field textarea {
+  font-size: 12px;
+}
+.edit-field input:focus,
+.edit-field textarea:focus,
+.form-field input:focus,
+.form-field textarea:focus,
+.contact-input:focus,
+.social-input:focus {
+  border-color: #1685ff;
+  box-shadow: 0 0 0 3px rgba(22, 133, 255, 0.12);
+}
+.edit-submit,
+.save-button,
+.register-button,
+.login-submit,
+.discover-error button {
+  background: #0878ff;
+  border-color: #0878ff;
+  border-radius: 11px;
+  color: #fff;
+  font-weight: 650;
+}
+.edit-submit:hover,
+.save-button:hover,
+.register-button:hover,
+.login-submit:hover:not(:disabled),
+.discover-error button:hover {
+  background: #1685ff;
+  border-color: #1685ff;
+}
+.social-contacts-container {
+  padding-right: 22px;
+  padding-left: 22px;
+}
+.social-contacts-header {
+  padding: 16px 0;
+  align-items: center;
+}
+.social-contacts-header h1 {
+  font-size: 18px;
+}
+.social-contacts-header p {
+  font-size: 11px;
+}
+.social-section {
+  margin-bottom: 23px;
+}
+.social-card {
+  min-height: 74px;
+  padding: 12px;
+}
+.social-card-info strong {
+  font-size: 12px;
+}
+.social-card-info span {
+  font-size: 10px;
+}
+.contact-input,
+.social-input {
+  height: 36px;
+  font-size: 10px;
+}
+.social-actions {
+  padding-top: 16px;
+}
+.projects-header {
+  align-items: center;
+  padding: 16px clamp(16px, 4vw, 30px);
+}
+.projects-header h1 {
+  font-size: 19px;
+}
+.projects-header p,
+.section-heading p {
+  font-size: 11px;
+}
+.projects-section {
+  padding: 18px;
+}
+.section-heading h2 {
+  font-size: 15px;
+}
+.form-field small {
+  font-size: 10px;
+}
+.project-card {
+  background: #03142b;
+  padding: 12px;
+}
+.project-card-title h3 {
+  font-size: 12px;
+}
+.project-card-info p {
+  font-size: 10px;
+}
+.discover-header {
+  padding: 12px 22px;
+}
+.discover-content {
+  padding-right: clamp(16px, 4vw, 30px);
+  padding-left: clamp(16px, 4vw, 30px);
+}
+.discover-intro h1 {
+  color: #fff;
+  font-size: clamp(25px, 4vw, 34px);
+  font-weight: 720;
+}
+.discover-intro p {
+  color: #9aacc4;
+}
+.discover-search {
+  min-height: 48px;
+}
+.discover-search input {
+  font-size: 13px;
+}
+.professionals-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+.professional-card {
+  border-radius: 16px;
+}
+.professional-card h3 {
+  font-size: 15px;
+}
+.professional-card p {
+  font-size: 11px;
+}
+.discover-state {
+  min-height: 200px;
+}
+.login-page {
+  background: #020d20;
+}
+.login-background {
+  background: radial-gradient(
+    circle at 50% 5%,
+    rgba(8, 120, 255, 0.16),
+    transparent 40%
+  );
+}
+.login-card,
+.register-card {
+  background: #061a36;
+  border: 1px solid rgba(23, 69, 117, 0.82);
+}
+.login-logo {
+  background: linear-gradient(135deg, #0878ff, #4ca2ff);
+  box-shadow: 0 18px 42px rgba(8, 120, 255, 0.25);
+}
+.login-brand h1,
+.login-header h2,
+.register-header h1 {
+  color: #fff;
+}
+.login-brand p,
+.login-header p,
+.register-header p {
+  color: #9aacc4;
+}
+.login-field input,
+.input-group input {
+  background: #03142b;
+  border-color: rgba(23, 69, 117, 0.9);
+  color: #fff;
+}
+.login-field input:focus,
+.input-group:focus-within {
+  border-color: #1685ff;
+}
+.login-submit,
+.register-button {
+  box-shadow: 0 8px 22px rgba(8, 120, 255, 0.2);
+}
+.login-page .login-register button,
+.login-page .login-forgot-button,
+.register-page .login-link button {
+  color: #58a5ff;
+}
+.register-page {
+  background:
+    radial-gradient(circle at 30% 0%, rgba(8, 120, 255, 0.14), transparent 35%),
+    #020d20;
+}
+.register-card {
+  padding-top: 24px;
+}
+.register-error {
+  color: #ffb4b4;
+}
+.splash-screen {
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(8, 120, 255, 0.18),
+      transparent 37%
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(22, 133, 255, 0.1),
+      transparent 30%
+    ),
+    #020d20;
+}
+.splash-content p {
+  color: #9aacc4;
+}
+.my-sintele-page button:focus-visible,
+.edit-profile-page button:focus-visible,
+.social-contacts-page button:focus-visible,
+.projects-page button:focus-visible,
+.discover-page button:focus-visible,
+.login-page button:focus-visible,
+.register-page button:focus-visible,
+.my-sintele-page a:focus-visible,
+.projects-page a:focus-visible,
+.discover-page a:focus-visible {
+  outline: 2px solid #70b3ff;
+  outline-offset: 3px;
+}
+@media (min-width: 900px) {
+  .social-contacts-container {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+  .social-section {
+    max-width: 760px;
+  }
+}
+@media (max-width: 560px) {
+  .my-sintele-container,
+  .edit-profile-container,
+  .projects-container,
+  .discover-container {
+    max-width: 100%;
+  }
+  .social-contacts-container {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+  .my-sintele-header,
+  .discover-header {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .discover-content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .professionals-grid {
+    grid-template-columns: 1fr;
+  }
+  .login-card {
+    border-radius: 20px;
+  }
+}
