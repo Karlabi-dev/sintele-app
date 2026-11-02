@@ -9,6 +9,7 @@ function DiscoverProfessionals({ onBack }) {
     const [professionals, setProfessionals] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [retryCount, setRetryCount] = useState(0);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -58,7 +59,7 @@ function DiscoverProfessionals({ onBack }) {
             clearTimeout(timeout);
             controller.abort();
         };
-    }, [search]);
+    }, [search, retryCount]);
 
     return (
         <div className="discover-page">
@@ -133,7 +134,7 @@ function DiscoverProfessionals({ onBack }) {
                             <p>{error}</p>
                             <button
                                 type="button"
-                                onClick={() => setSearch((value) => value)}
+                                onClick={() => setRetryCount((value) => value + 1)}
                             >
                                 Tentar novamente
                             </button>
@@ -165,18 +166,20 @@ function DiscoverProfessionals({ onBack }) {
                                         key={professional.username}
                                     >
                                         <div className="professional-card-top">
-                                            <img
-                                                className="professional-avatar"
-                                                src={
-                                                    professional.photoUrl ||
-                                                    "/default-avatar.png"
-                                                }
-                                                alt={`Foto de ${professional.fullName}`}
-                                                onError={(event) => {
-                                                    event.currentTarget.src =
-                                                        "/default-avatar.png";
-                                                }}
-                                            />
+{professional.photoUrl ? (
+                                                <img
+                                                    className="professional-avatar"
+                                                    src={professional.photoUrl}
+                                                    alt={`Foto de ${professional.fullName}`}
+                                                    onError={(event) => {
+                                                        event.currentTarget.style.display = "none";
+                                                    }}
+                                                />
+                                            ) : (
+                                                <div className="professional-avatar professional-avatar-fallback">
+                                                    {professional.fullName?.charAt(0).toUpperCase() || "S"}
+                                                </div>
+                                            )}
                                             <span className="professional-open-icon">
                                                 ↗
                                             </span>
