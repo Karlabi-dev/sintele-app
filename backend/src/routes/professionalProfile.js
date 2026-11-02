@@ -23,6 +23,7 @@ router.get(
                     pp.city,
                     pp.state,
                     pp.phone,
+                    pp.is_public,
                     pp.created_at,
                     pp.updated_at
                 FROM professional_profiles pp
@@ -67,6 +68,7 @@ router.put(
                 city,
                 state,
                 phone,
+                isPublic,
             } = req.body;
             if (!fullName || !fullName.trim()) {
                 return res.status(400).json({
@@ -106,10 +108,11 @@ router.put(
                     city = $7,
                     state = $8,
                     phone = $9,
+                    is_public = COALESCE($10, pp.is_public),
                     updated_at = CURRENT_TIMESTAMP
                 FROM accounts a
                 WHERE pp.account_id = a.id
-                  AND a.firebase_uid = $10
+                  AND a.firebase_uid = $11
                 RETURNING
                     pp.id,
                     pp.account_id,
@@ -123,6 +126,7 @@ router.put(
                     pp.city,
                     pp.state,
                     pp.phone,
+                    pp.is_public,
                     pp.created_at,
                     pp.updated_at
                 `,
@@ -136,6 +140,7 @@ router.put(
                     city?.trim() || null,
                     state?.trim() || null,
                     phone?.trim() || null,
+                    typeof isPublic === "boolean" ? isPublic : null,
                     uid,
                 ]
             );
@@ -191,6 +196,7 @@ router.get(
                     pp.state
                 FROM professional_profiles pp
                 WHERE pp.username = $1
+                    AND pp.is_public = TRUE
                 `,
                 [normalizedUsername]
             );
@@ -295,6 +301,7 @@ router.get(
                     pp.all_projects_url
                 FROM professional_profiles pp
                 WHERE pp.username = $1
+                    AND pp.is_public = TRUE
                 `,
                 [normalizedUsername]
             );
