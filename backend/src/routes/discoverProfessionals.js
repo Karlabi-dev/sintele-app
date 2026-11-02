@@ -16,7 +16,8 @@ router.get("/public/professionals", async (req, res) => {
                 bio
             FROM professional_profiles
             WHERE
-                username IS NOT NULL
+                is_public = TRUE
+                AND username IS NOT NULL
                 AND username <> ''
                 AND (
                     $1 = ''
