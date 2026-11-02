@@ -15,6 +15,7 @@ function ProfessionalDashboard({
     onMeuSintele,
     onSocialContacts,
     onProjects,
+    onDiscoverProfessionals,
 }) {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -272,6 +273,18 @@ function ProfessionalDashboard({
                                     Meus
                                     <br />
                                     projetos
+                                </span>
+                            </button>
+                            <button
+                                type="button"
+                                className="quick-action"
+                                onClick={onDiscoverProfessionals}
+                            >
+                                <span className="quick-action-icon">
+                                    <span aria-hidden="true">⌕</span>
+                                </span>
+                                <span>
+                                    Conheça quem já está no SINTELE
                                 </span>
                             </button>
                         </div>
