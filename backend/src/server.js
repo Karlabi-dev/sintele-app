@@ -12,6 +12,8 @@ const socialContactsRoutes =
     require("./routes/socialContacts");
 const projectsRoutes =
     require("./routes/projects");
+const discoverProfessionalsRoutes =
+    require("./routes/discoverProfessionals");
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(helmet());
@@ -43,6 +45,7 @@ app.use("/api", professionalProfileRoutes);
 app.use("/api", uploadRoutes);
 app.use("/api", socialContactsRoutes);
 app.use("/api", projectsRoutes);
+app.use("/api", discoverProfessionalsRoutes);
 const cloudinary = require("./cloudinary");
 cloudinary.api.ping()
     .then(() => {
