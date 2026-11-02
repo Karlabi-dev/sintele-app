@@ -1,0 +1,256 @@
+
+/* ========================================
+   SINTELE — SISTEMA VISUAL GLOBAL
+   Padrões compartilhados da aplicação
+======================================== */
+
+:root {
+  /* Cores principais */
+  --sintele-bg: #020d20;
+  --sintele-bg-secondary: #061a36;
+  --sintele-bg-tertiary: #0a2142;
+
+  /* Azul da identidade visual */
+  --sintele-primary: #0878ff;
+  --sintele-primary-hover: #0067e6;
+  --sintele-primary-light: #70b3ff;
+  --sintele-primary-soft: rgba(8, 120, 255, 0.12);
+
+  /* Textos */
+  --sintele-text: #f7faff;
+  --sintele-text-secondary: #a9bad1;
+  --sintele-text-muted: #71849e;
+
+  /* Bordas */
+  --sintele-border: rgba(151, 180, 216, 0.16);
+  --sintele-border-strong: rgba(151, 180, 216, 0.28);
+
+  /* Estados */
+  --sintele-success: #22c58b;
+  --sintele-warning: #f5b942;
+  --sintele-danger: #ff5c70;
+
+  /* Formulários */
+  --sintele-input-bg: #03142b;
+  --sintele-input-border: rgba(151, 180, 216, 0.22);
+  --sintele-input-focus: #0878ff;
+
+  /* Sombras */
+  --sintele-shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.16);
+  --sintele-shadow-md: 0 12px 32px rgba(0, 0, 0, 0.24);
+  --sintele-shadow-blue: 0 8px 24px rgba(8, 120, 255, 0.18);
+
+  /* Bordas arredondadas */
+  --sintele-radius-sm: 8px;
+  --sintele-radius-md: 14px;
+  --sintele-radius-lg: 20px;
+  --sintele-radius-xl: 26px;
+  --sintele-radius-pill: 999px;
+
+  /* Espaçamentos */
+  --sintele-space-1: 4px;
+  --sintele-space-2: 8px;
+  --sintele-space-3: 12px;
+  --sintele-space-4: 16px;
+  --sintele-space-5: 20px;
+  --sintele-space-6: 24px;
+  --sintele-space-8: 32px;
+  --sintele-space-10: 40px;
+  --sintele-space-12: 48px;
+
+  /* Layout */
+  --sintele-content-width: 1200px;
+  --sintele-page-padding: 32px;
+
+  /* Transições */
+  --sintele-transition: 0.2s ease;
+}
+
+/* ========================================
+   TIPOGRAFIA
+======================================== */
+
+body {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--sintele-text);
+  background: var(--sintele-bg);
+  line-height: 1.5;
+}
+
+/* ========================================
+   ELEMENTOS COMPARTILHADOS
+======================================== */
+
+.sintele-container {
+  width: min(100% - 48px, var(--sintele-content-width));
+  margin-inline: auto;
+}
+
+.sintele-card {
+  background: var(--sintele-bg-secondary);
+  border: 1px solid var(--sintele-border);
+  border-radius: var(--sintele-radius-lg);
+  box-shadow: var(--sintele-shadow-sm);
+}
+
+.sintele-muted {
+  color: var(--sintele-text-secondary);
+}
+
+.sintele-small {
+  color: var(--sintele-text-muted);
+  font-size: 0.875rem;
+}
+
+/* ========================================
+   BOTÕES COMPARTILHADOS
+======================================== */
+
+.sintele-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 44px;
+  padding: 10px 18px;
+
+  border: 1px solid transparent;
+  border-radius: var(--sintele-radius-md);
+
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+
+  cursor: pointer;
+  transition:
+    background var(--sintele-transition),
+    border-color var(--sintele-transition),
+    color var(--sintele-transition),
+    box-shadow var(--sintele-transition),
+    transform var(--sintele-transition);
+}
+
+.sintele-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.sintele-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.sintele-button-primary {
+  color: #ffffff;
+  background: var(--sintele-primary);
+}
+
+.sintele-button-primary:hover:not(:disabled) {
+  background: var(--sintele-primary-hover);
+  box-shadow: var(--sintele-shadow-blue);
+}
+
+.sintele-button-secondary {
+  color: var(--sintele-text);
+  background: var(--sintele-bg-tertiary);
+  border-color: var(--sintele-border);
+}
+
+.sintele-button-secondary:hover:not(:disabled) {
+  border-color: var(--sintele-primary);
+  background: var(--sintele-primary-soft);
+}
+
+/* ========================================
+   CAMPOS DE FORMULÁRIO COMPARTILHADOS
+======================================== */
+
+.sintele-field {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+
+  color: var(--sintele-text);
+  background: var(--sintele-input-bg);
+
+  border: 1px solid var(--sintele-input-border);
+  border-radius: var(--sintele-radius-md);
+
+  font: inherit;
+  outline: none;
+
+  transition:
+    border-color var(--sintele-transition),
+    box-shadow var(--sintele-transition);
+}
+
+.sintele-field::placeholder {
+  color: var(--sintele-text-muted);
+}
+
+.sintele-field:focus {
+  border-color: var(--sintele-input-focus);
+  box-shadow: 0 0 0 3px rgba(8, 120, 255, 0.14);
+}
+
+.sintele-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   ESTADOS E ACESSIBILIDADE
+======================================== */
+
+.sintele-error {
+  color: var(--sintele-danger);
+}
+
+.sintele-success {
+  color: var(--sintele-success);
+}
+
+.sintele-warning {
+  color: var(--sintele-warning);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sintele-primary-light);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --sintele-page-padding: 20px;
+  }
+
+  .sintele-container {
+    width: min(100% - 32px, var(--sintele-content-width));
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --sintele-page-padding: 16px;
+  }
+
+  .sintele-card {
+    border-radius: var(--sintele-radius-md);
+  }
+
+  .sintele-button {
+    min-height: 44px;
+  }
+}

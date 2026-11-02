@@ -11,6 +11,7 @@ import SocialContacts from "./pages/SocialContacts/SocialContacts";
 import Projects from "./pages/Projects/Projects";
 import MySintele from "./pages/MySintele/MySintele";
 import DiscoverProfessionals from "./pages/DiscoverProfessionals/DiscoverProfessionals";
+import "./styles/professional-ui.css";
 function App() {
     const [page, setPage] = useState("home");
     const [account, setAccount] = useState(null);
