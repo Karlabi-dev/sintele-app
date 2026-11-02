@@ -434,3 +434,9 @@
     border-radius: 20px;
   }
 }
+
+@media (max-width: 350px) {
+  .my-sintele-share-button {
+    min-height: 55px;
+  }
+}

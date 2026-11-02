@@ -670,7 +670,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  min-height: 66px;
+  min-height: calc(66px + env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -776,6 +776,10 @@
   color: #fff;
   text-align: center;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .qr-modal-close {
   position: absolute;
@@ -938,7 +942,7 @@
   }
   .dashboard-content {
     gap: 19px;
-    padding: 21px 15px 90px;
+    padding: 21px 15px calc(90px + env(safe-area-inset-bottom, 0px));
   }
   .profile-hero {
     padding: 17px;
@@ -1005,7 +1009,7 @@
   }
   .profile-status {
     padding: 3px 6px;
-    font-size: 8px;
+    font-size: 9px;
   }
   .quick-actions-grid {
     grid-template-columns: 1fr;
@@ -1018,5 +1022,37 @@
   .impact-icon {
     width: 28px;
     height: 28px;
+  }
+}
+
+@media (max-width: 350px) {
+  .dashboard-header {
+    gap: 6px;
+    padding: 0 8px;
+  }
+  .dashboard-header > .dashboard-brand {
+    gap: 6px;
+  }
+  .dashboard-header .brand-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+  .dashboard-header .brand-name {
+    font-size: 12px;
+    letter-spacing: 0.55px;
+  }
+  .dashboard-header-actions {
+    gap: 4px;
+  }
+  .header-share-button {
+    width: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    flex: 0 0 36px;
+    padding: 0;
+  }
+  .header-share-button span {
+    display: none;
   }
 }

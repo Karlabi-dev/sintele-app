@@ -334,6 +334,7 @@ function ProfessionalDashboard({
               <button
                 className="header-share-button"
                 type="button"
+                aria-label="Compartilhar perfil"
                 onClick={handleShareProfile}
               >
                 <Icon name="share" size={17} />
