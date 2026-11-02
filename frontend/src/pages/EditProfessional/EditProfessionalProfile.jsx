@@ -11,6 +11,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
         city: "",
         state: "",
         phone: "",
+        isPublic: true,
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -51,6 +52,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                     city: profile.city || "",
                     state: profile.state || "",
                     phone: profile.phone || "",
+                    isPublic: profile.is_public ?? true,
                 });
             } catch (error) {
                 console.error("ERRO AO CARREGAR PERFIL:", error);
@@ -169,6 +171,7 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                 city: data.profile.city || "",
                 state: data.profile.state || "",
                 phone: data.profile.phone || "",
+                isPublic: data.profile.is_public ?? true,
             });
             setSuccess("Perfil atualizado com sucesso!");
             if (onProfileUpdated) {
@@ -328,6 +331,36 @@ function EditProfessionalProfile({ onBack, onProfileUpdated }) {
                                 />
                             </div>
                         </div>
+                        <section className="privacy-section">
+                            <div className="privacy-header">
+                                <div className="privacy-info">
+                                    <span className="privacy-title">Visibilidade do perfil</span>
+                                    <span className="privacy-description">
+                                        {formData.isPublic
+                                            ? "Seu perfil pode ser encontrado por outras pessoas."
+                                            : "Seu perfil ficará oculto na descoberta pública."}
+                                    </span>
+                                </div>
+
+                                <label className="privacy-switch">
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.isPublic}
+                                        onChange={(event) =>
+                                            setFormData((previous) => ({
+                                                ...previous,
+                                                isPublic: event.target.checked,
+                                            }))
+                                        }
+                                    />
+                                    <span className="privacy-slider"></span>
+                                </label>
+                            </div>
+
+                            <div className="privacy-status">
+                                {formData.isPublic ? "● Perfil público" : "● Perfil privado"}
+                            </div>
+                        </section>
                         {error && <div className="edit-message error">{error}</div>}
                         {success && <div className="edit-message success">{success}</div>}
                         <button type="submit" className="edit-submit" disabled={saving}>
