@@ -10,6 +10,7 @@ import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
 import SocialContacts from "./pages/SocialContacts/SocialContacts";
 import Projects from "./pages/Projects/Projects";
 import MySintele from "./pages/MySintele/MySintele";
+import DiscoverProfessionals from "./pages/DiscoverProfessionals/DiscoverProfessionals";
 function App() {
     const [page, setPage] = useState("home");
     const [account, setAccount] = useState(null);
@@ -98,6 +99,13 @@ function App() {
             />
         );
     }
+    if (page === "discover-professionals") {
+        return (
+            <DiscoverProfessionals
+                onBack={() => setPage("professional")}
+            />
+        );
+    }
     if (page === "my-sintele") {
     return (
         <MySintele
@@ -123,6 +131,9 @@ function App() {
                 }
                 onProjects={() =>
                     setPage("projects")
+                }
+                onDiscoverProfessionals={() =>
+                    setPage("discover-professionals")
                 }
             />
         );
