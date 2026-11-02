@@ -322,3 +322,11 @@
         min-height: auto;
     }
 }
+
+.professional-avatar-fallback {
+    display: grid;
+    place-items: center;
+    color: #8fc4ff;
+    font-size: 25px;
+    font-weight: 700;
+}
